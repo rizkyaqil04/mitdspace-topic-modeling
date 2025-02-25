@@ -3,8 +3,6 @@ import re
 import json
 import logging
 from datetime import datetime
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
 
 # Paths for storing scraping results
 DATA_PATH = "data/raw/sinta_papers.json"
@@ -24,6 +22,9 @@ logging.basicConfig(
 # Function to get max pages
 async def get_max_pages(query):
     logging.info(f"🔍 Mendeteksi jumlah halaman untuk query: {query}")
+
+    from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+    from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
     
     schema = {
         "name": "Pagination Info",
@@ -52,7 +53,9 @@ async def get_max_pages(query):
                 if match:
                     max_pages = int(match.group(1))
                     logging.info(f"📄 Ditemukan {max_pages} halaman untuk query '{query}'")
-                    return max_pages
+
+                    return 50 if max_pages > 50 else max_pages # Sesuaikan jumlah halaman dan maksimal halaman
+
 
         except Exception as e:
             logging.error(f"⚠️ Gagal mendapatkan jumlah halaman: {e}")
@@ -62,6 +65,9 @@ async def get_max_pages(query):
 # Functi Functionto scrape the papers
 async def scraping_data(query):
     logging.info(f"🚀 Memulai scraping data untuk query: {query}")
+
+    from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+    from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
     
     max_pages = await get_max_pages(query)
 

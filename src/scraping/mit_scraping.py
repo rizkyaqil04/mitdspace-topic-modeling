@@ -1,10 +1,6 @@
 import os
 import json
 import logging
-import asyncio
-
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
 
 # Paths for storing scraping results
 DATA_PATH = "data/raw/mit_scraped.json"
@@ -23,12 +19,15 @@ logging.basicConfig(
 )
 
 async def get_max_pages():
-    max_pages = 40  # Sesuaikan jika perlu
+    max_pages = 40  # Sesuaikan jumlah hamalan (1 halaman = 250 judul)
     logging.info(f"Max pages set to {max_pages}")
     return max_pages
 
 async def scraping_data():
     logging.info("Starting scraping process")
+
+    from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+    from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
     
     max_pages = await get_max_pages()
     
@@ -74,4 +73,5 @@ async def scraping_data():
     return all_papers
 
 if __name__ == "__main__":
+    import asyncio
     asyncio.run(scraping_data())

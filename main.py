@@ -16,14 +16,15 @@ MODELS_DIR = Path("models")
 
 SCRAPED_FILE = RAW_DIR / "mit_scraped.json"
 PREPROCESSED_FILE = PROCESSED_DIR / "data_preprocessed.json"
-CLUSTERING_FILE = RESULTS_DIR / "clustering_results.json"
+CLUSTERING_FILE = RESULTS_DIR / "topics.json"
 MODEL_PATH = MODELS_DIR / "bertopic_model"
 
 async def main():
-    print(SCRAPED_FILE)
-    from src.mit_scraping import scraping_data
-    from src.preprocessing import preprocess_papers
-    from src.bert import compute_topics_with_bertopic
+    print(f"using data from {SCRAPED_FILE}")
+
+    from src.scraping.mit_scraping import scraping_data
+    from src.preprocessing.preprocessing import preprocess_papers
+    from src.training.bert import compute_topics_with_bertopic
 
     # Ensure directories exist
     RAW_DIR.mkdir(parents=True, exist_ok=True)
@@ -82,7 +83,7 @@ async def main():
         return
 
     results = {"clusters": topics, "topic_info": topic_info.to_dict(orient="records")}
-    CLUSTERING_FILE.write_text(json.dumps(results, indent=2, ensure_ascii=False))
+    # CLUSTERING_FILE.write_text(json.dumps(results, indent=2, ensure_ascii=False))
 
     logging.info(f"✅ Clustering complete! Results saved to '{CLUSTERING_FILE}'")
 

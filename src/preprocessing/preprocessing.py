@@ -22,29 +22,33 @@ logging.basicConfig(
 )
 
 def clean_text(text):
-    """ Cleans text by removing special characters, numbers, and stopwords. """
-    # from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
+    """ Cleans text by removing special characters, numbers, and stopwords, and applying lemmatization. """
     from nltk.tokenize import word_tokenize
     from nltk.corpus import stopwords
+    from nltk.stem import WordNetLemmatizer
     import nltk
 
     try:
-        # Ensure stopwords for NLTK are downloaded
+        # Ensure necessary NLTK resources are downloaded
         nltk.download("punkt", quiet=True)
         nltk.download("stopwords", quiet=True)
+        nltk.download("wordnet", quiet=True)
 
-        # Initialize stopwords
+        # Initialize stopwords and lemmatizer
         # stopword_factory = StopWordRemoverFactory()
         # stopwords_id = set(stopword_factory.get_stop_words())
         stopwords_en = set(stopwords.words("english"))
+        lemmatizer = WordNetLemmatizer()
 
         text = text.lower().strip()  # Convert to lowercase & remove leading/trailing spaces
         text = re.sub(r"\d+", "", text)  # Remove numbers
         text = re.sub(r"\s+", " ", text)  # Remove excessive spaces
         text = re.sub(r"[^\w\s]", "", text)  # Remove punctuation
         tokens = word_tokenize(text)  # Tokenization
+        tokens = [lemmatizer.lemmatize(word) for word in tokens]  # Lemmatization
         # tokens = [word for word in tokens if word not in stopwords_id and word not in stopwords_en]  # Remove stopwords
         tokens = [word for word in tokens if word not in stopwords_en]  # Remove stopwords
+
         return " ".join(tokens)
     except Exception as e:
         logging.error(f"Error in clean_text: {e}")
