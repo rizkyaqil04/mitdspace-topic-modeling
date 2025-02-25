@@ -120,19 +120,25 @@ DSPACE_TITLES_TOPIC_MODELING/
 ---
 
 ## Cara Menjalankan
-1. **Persiapkan dataset**: Pastikan file yang diperlukan tersedia di dalam folder `data/`.
-2. **Jalankan preprocessing**:
-   ```bash
-   python src/preprocessing/preprocessing.py
+Anda dapat langsung mengeksekusinya melalui :
+ ```bash
+   python main.py
    ```
-3. **Jalankan scraping**:
+
+1. **Persiapkan dataset**: Pastikan file yang diperlukan tersedia di dalam folder `data/`.
+2. **Jalankan scraping**:
    ```bash
    python src/scraping/mit_scraping.py
    python src/scraping/scholar_scraping.py
    python src/scraping/sinta_scraping.py
    ```
+3. **Jalankan preprocessing**:
+   ```bash
+   python src/preprocessing/preprocessing.py
+   ```
 4. **Latih model BERTopic**:
    ```bash
+   python src/training/bert.py
    python src/training/bert-kmeans.py
    ```
 5. **Testing**:
