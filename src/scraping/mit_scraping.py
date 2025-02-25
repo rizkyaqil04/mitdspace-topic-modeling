@@ -23,7 +23,7 @@ logging.basicConfig(
 )
 
 async def get_max_pages():
-    max_pages = 1000  # Sesuaikan jika perlu
+    max_pages = 40  # Sesuaikan jika perlu
     logging.info(f"Max pages set to {max_pages}")
     return max_pages
 
@@ -55,7 +55,7 @@ async def scraping_data():
         )
 
         for page in range(1, max_pages + 1):
-            url = f"https://dspace.mit.edu/discover?rpp=10&etal=0&group_by=none&page={page}&sort_by=dc.date.issued_dt&order=desc"
+            url = f"https://dspace.mit.edu/discover?rpp=250&etal=0&group_by=none&page={page}&sort_by=dc.date.issued_dt&order=desc"
             logging.info(f"Scraping page {page}: {url}")
             try:
                 result = await crawler.arun(url=url, config=config)
