@@ -43,7 +43,7 @@ DSPACE_TITLES_TOPIC_MODELING menggunakan **BERTopic** untuk mengekstraksi topik 
 5. **Deployment dan API Development** (Bagian ini masih belum)
    - Model yang telah dilatih dikemas dalam **Docker container** untuk memastikan kompatibilitas lintas lingkungan.
    - API dikembangkan menggunakan **FastAPI**, memungkinkan pengguna untuk menginput judul paper baru dan mendapatkan prediksi topik secara real-time.
-   - Deployment dilakukan secara otomatis melalui **GitLab CI/CD**, memastikan model terbaru selalu tersedia di server produksi.
+   - Deployment dilakukan secara otomatis melalui **Github Actions**, memastikan model terbaru selalu tersedia di server produksi.
 
 6. **Monitoring dan Maintenance** (Bagian ini masih belum)
    - Performa model dipantau menggunakan **ELK Stack (Elasticsearch, Logstash, Kibana)** untuk mendeteksi degradasi akibat perubahan pola data.
