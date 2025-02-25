@@ -92,7 +92,6 @@ if __name__ == "__main__":
         except Exception as e:
             logging.error(f"Error reading JSON file: {e}")
 
-
 #     # Cek apakah file hasil scraping tersedia
 #     if not os.path.exists(SCRAPED_DATA_PATH):
 #         print(f"⚠️  File '{SCRAPED_DATA_PATH}' tidak ditemukan. Jalankan 'scraping.py' terlebih dahulu.")
