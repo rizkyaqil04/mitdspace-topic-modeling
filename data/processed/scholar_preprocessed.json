@@ -1,0 +1,786 @@
+[
+  {
+    "title": "deep residual learning image recognition",
+    "description": ""
+  },
+  {
+    "title": "faster rcnn towards realtime object detection region proposal networks",
+    "description": ""
+  },
+  {
+    "title": "mask rcnn",
+    "description": ""
+  },
+  {
+    "title": "focal loss dense object detection",
+    "description": ""
+  },
+  {
+    "title": "feature pyramid networks object detection",
+    "description": ""
+  },
+  {
+    "title": "delving deep rectifiers surpassing humanlevel performance imagenet classification",
+    "description": ""
+  },
+  {
+    "title": "spatial pyramid pooling deep convolutional networks visual recognition",
+    "description": ""
+  },
+  {
+    "title": "learning deep convolutional network image superresolution",
+    "description": ""
+  },
+  {
+    "title": "momentum contrast unsupervised visual representation learning",
+    "description": ""
+  },
+  {
+    "title": "aggregated residual transformations deep neural networks",
+    "description": ""
+  },
+  {
+    "title": "identity mappings deep residual networks",
+    "description": ""
+  },
+  {
+    "title": "nonlocal neural networks",
+    "description": ""
+  },
+  {
+    "title": "single image haze removal using dark channel prior",
+    "description": ""
+  },
+  {
+    "title": "masked autoencoders scalable vision learners",
+    "description": ""
+  },
+  {
+    "title": "guided image filtering",
+    "description": ""
+  },
+  {
+    "title": "rfcn object detection via regionbased fully convolutional networks",
+    "description": ""
+  },
+  {
+    "title": "exploring simple siamese representation learning",
+    "description": ""
+  },
+  {
+    "title": "group normalization",
+    "description": ""
+  },
+  {
+    "title": "accurate large minibatch sgd training imagenet hour",
+    "description": ""
+  },
+  {
+    "title": "slowfast networks video recognition",
+    "description": ""
+  },
+  {
+    "title": "nanocarriers emerging platform cancer therapy",
+    "description": ""
+  },
+  {
+    "title": "engineering precision nanoparticles drug delivery",
+    "description": ""
+  },
+  {
+    "title": "hydrogels biology medicine molecular principles bionanotechnology",
+    "description": ""
+  },
+  {
+    "title": "designing materials biology medicine",
+    "description": ""
+  },
+  {
+    "title": "impact nanotechnology drug delivery",
+    "description": ""
+  },
+  {
+    "title": "transdermal drug delivery",
+    "description": ""
+  },
+  {
+    "title": "biodegradable longcirculating polymeric nanospheres",
+    "description": ""
+  },
+  {
+    "title": "knocking barriers advances sirna delivery",
+    "description": ""
+  },
+  {
+    "title": "polymeric systems controlled drug release",
+    "description": ""
+  },
+  {
+    "title": "physical mechanical properties pla functions widespread applicationsa comprehensive review",
+    "description": ""
+  },
+  {
+    "title": "nanoparticles medicine therapeutic applications developments",
+    "description": ""
+  },
+  {
+    "title": "drug delivery targeting",
+    "description": ""
+  },
+  {
+    "title": "new methods drug delivery",
+    "description": ""
+  },
+  {
+    "title": "principles tissue engineering",
+    "description": ""
+  },
+  {
+    "title": "biodegradable elastic shapememory polymers potential biomedical applications",
+    "description": ""
+  },
+  {
+    "title": "functional arteries grown vitro",
+    "description": ""
+  },
+  {
+    "title": "lipid nanoparticles mrna delivery",
+    "description": ""
+  },
+  {
+    "title": "lightinduced shapememory polymers",
+    "description": ""
+  },
+  {
+    "title": "targeted nanoparticleaptamer bioconjugates cancer chemotherapy vivo",
+    "description": ""
+  },
+  {
+    "title": "crisprcas knockin mice genome editing cancer modeling",
+    "description": ""
+  },
+  {
+    "title": "hallmarks cancer next generation",
+    "description": ""
+  },
+  {
+    "title": "hallmarks cancer",
+    "description": ""
+  },
+  {
+    "title": "basics epithelialmesenchymal transition",
+    "description": ""
+  },
+  {
+    "title": "epithelialmesenchymal transition generates cells properties stem cells",
+    "description": ""
+  },
+  {
+    "title": "retinoblastoma protein cell cycle control",
+    "description": ""
+  },
+  {
+    "title": "devita hellman rosenbergs cancer principles practice oncology",
+    "description": ""
+  },
+  {
+    "title": "perspective cancer cell metastasis",
+    "description": ""
+  },
+  {
+    "title": "dialogue",
+    "description": ""
+  },
+  {
+    "title": "twist master regulator morphogenesis plays essential role tumor metastasis",
+    "description": ""
+  },
+  {
+    "title": "understanding tumor immune microenvironment time effective therapy",
+    "description": ""
+  },
+  {
+    "title": "tumor metastasis molecular insights evolving paradigms",
+    "description": ""
+  },
+  {
+    "title": "stromal fibroblasts present invasive human breast carcinomas promote tumor growth angiogenesis elevated sdfcxcl secretion",
+    "description": ""
+  },
+  {
+    "title": "biology cancer",
+    "description": ""
+  },
+  {
+    "title": "transitions epithelial mesenchymal states acquisition malignant stem cell traits",
+    "description": ""
+  },
+  {
+    "title": "mesenchymal stem cells within tumour stroma promote breast cancer metastasis",
+    "description": ""
+  },
+  {
+    "title": "human dna segment properties gene predisposes retinoblastoma osteosarcoma",
+    "description": ""
+  },
+  {
+    "title": "epithelialmesenchymal transition crossroads development tumor metastasis",
+    "description": ""
+  },
+  {
+    "title": "tumorigenic conversion primary embryo fibroblasts requires least two cooperating oncogenes",
+    "description": ""
+  },
+  {
+    "title": "new insights mechanisms epithelialmesenchymal transition implications cancer",
+    "description": ""
+  },
+  {
+    "title": "hsirsirt functions naddependent p deacetylase",
+    "description": ""
+  },
+  {
+    "title": "atlas experiment cern large hadron collider",
+    "description": ""
+  },
+  {
+    "title": "cms experiment cern lhc",
+    "description": ""
+  },
+  {
+    "title": "atlas simulation infrastructure",
+    "description": ""
+  },
+  {
+    "title": "observation new boson mass near gev pp collisions atand tev",
+    "description": ""
+  },
+  {
+    "title": "search topsquark pair production singlelepton final state pp collisions",
+    "description": ""
+  },
+  {
+    "title": "precise determination mass higgs boson tests compatibility couplings standard model predictions using proton collisions tev",
+    "description": ""
+  },
+  {
+    "title": "evidence gev higgs boson decaying pair τ leptons",
+    "description": ""
+  },
+  {
+    "title": "measurement lepton charge asymmetry inclusive w production pp collisions",
+    "description": ""
+  },
+  {
+    "title": "event generator tunes obtained underlying event multiparton scattering measurements",
+    "description": ""
+  },
+  {
+    "title": "measurement inclusive w z production cross sections pp collisions sqrt tev",
+    "description": ""
+  },
+  {
+    "title": "suppression nonprompt jψ prompt jψ ands pbpb collisions attev",
+    "description": ""
+  },
+  {
+    "title": "particleflow reconstruction global event description cms detector",
+    "description": ""
+  },
+  {
+    "title": "measurement theproduction cross section dilepton channel pp collisions attev",
+    "description": ""
+  },
+  {
+    "title": "observation longrange nearside angular correlations protonproton collisions lhc",
+    "description": ""
+  },
+  {
+    "title": "cms trigger system",
+    "description": ""
+  },
+  {
+    "title": "combined measurement higgs boson mass incollisions atand tev atlas cms experiments",
+    "description": ""
+  },
+  {
+    "title": "physical properties carbon nanotubes",
+    "description": ""
+  },
+  {
+    "title": "science fullerenes carbon nanotubes properties applications",
+    "description": ""
+  },
+  {
+    "title": "large area fewlayer graphene films arbitrary substrates chemical vapor deposition",
+    "description": ""
+  },
+  {
+    "title": "raman spectroscopy graphene",
+    "description": ""
+  },
+  {
+    "title": "highthermoelectric performance nanostructured bismuth antimony telluride bulk alloys",
+    "description": ""
+  },
+  {
+    "title": "carbon nanotubes",
+    "description": ""
+  },
+  {
+    "title": "raman spectroscopy carbon nanotubes",
+    "description": ""
+  },
+  {
+    "title": "effect quantumwell structures thermoelectric figure merit",
+    "description": ""
+  },
+  {
+    "title": "alternative energy technologies",
+    "description": ""
+  },
+  {
+    "title": "edge state graphene ribbons nanometer size effect edge shape dependence",
+    "description": ""
+  },
+  {
+    "title": "studying disorder graphitebased systems raman spectroscopy",
+    "description": ""
+  },
+  {
+    "title": "new directions lowdimensional thermoelectric materials",
+    "description": ""
+  },
+  {
+    "title": "electronic structure chiral graphene tubules",
+    "description": ""
+  },
+  {
+    "title": "thermoelectric figure merit onedimensional conductor",
+    "description": ""
+  },
+  {
+    "title": "perspectives carbon nanotubes graphene raman spectroscopy",
+    "description": ""
+  },
+  {
+    "title": "intercalation compounds graphite",
+    "description": ""
+  },
+  {
+    "title": "diameterselective raman scattering vibrational modes carbon nanotubes",
+    "description": ""
+  },
+  {
+    "title": "hydrogen storage singlewalled carbon nanotubes room temperature",
+    "description": ""
+  },
+  {
+    "title": "bulk nanostructured thermoelectric materials current research future prospects",
+    "description": ""
+  },
+  {
+    "title": "structurebased carbon nanotube sorting sequencedependent dna assembly",
+    "description": ""
+  },
+  {
+    "title": "colonial origins comparative development empirical investigation",
+    "description": ""
+  },
+  {
+    "title": "nations fail origins power prosperity poverty",
+    "description": ""
+  },
+  {
+    "title": "institutions fundamental cause longrun growth",
+    "description": ""
+  },
+  {
+    "title": "economic origins dictatorship democracy",
+    "description": ""
+  },
+  {
+    "title": "reversal fortune geography institutions making modern world income distribution",
+    "description": ""
+  },
+  {
+    "title": "skills tasks technologies implications employment earnings",
+    "description": ""
+  },
+  {
+    "title": "introduction modern economic growth",
+    "description": ""
+  },
+  {
+    "title": "technical change inequality labor market",
+    "description": ""
+  },
+  {
+    "title": "robots jobs evidence us labor markets",
+    "description": ""
+  },
+  {
+    "title": "unbundling institutions",
+    "description": ""
+  },
+  {
+    "title": "environment directed technical change",
+    "description": ""
+  },
+  {
+    "title": "new technologies complement skills directed technical change wage inequality",
+    "description": ""
+  },
+  {
+    "title": "directed technical change",
+    "description": ""
+  },
+  {
+    "title": "race man machine implications technology growth factor shares employment",
+    "description": ""
+  },
+  {
+    "title": "distance frontier selection economic growth",
+    "description": ""
+  },
+  {
+    "title": "network origins aggregate fluctuations",
+    "description": ""
+  },
+  {
+    "title": "institutional causes macroeconomic symptoms volatility crises growth",
+    "description": ""
+  },
+  {
+    "title": "rise europe atlantic trade institutional change economic growth",
+    "description": ""
+  },
+  {
+    "title": "west extend franchise democracy inequality growth historical perspective",
+    "description": ""
+  },
+  {
+    "title": "systemic risk stability financial networks",
+    "description": ""
+  },
+  {
+    "title": "micrornas genomics biogenesis mechanism function",
+    "description": ""
+  },
+  {
+    "title": "micrornas target recognition regulatory functions",
+    "description": ""
+  },
+  {
+    "title": "conserved seed pairing often flanked adenosines indicates thousands human genes microrna targets",
+    "description": ""
+  },
+  {
+    "title": "mammalian mrnas conserved targets micrornas",
+    "description": ""
+  },
+  {
+    "title": "predicting effective microrna target sites mammalian mrnas",
+    "description": ""
+  },
+  {
+    "title": "prediction mammalian microrna targets",
+    "description": ""
+  },
+  {
+    "title": "microarray analysis shows micrornas downregulate large numbers target mrnas",
+    "description": ""
+  },
+  {
+    "title": "microrna targeting specificity mammals determinants beyond seed pairing",
+    "description": ""
+  },
+  {
+    "title": "abundant class tiny rnas probable regulatory roles caenorhabditis elegans",
+    "description": ""
+  },
+  {
+    "title": "mammalian micrornas predominantly act decrease target mrna levels",
+    "description": ""
+  },
+  {
+    "title": "rnai doublestranded rna directs atpdependent cleavage mrna nucleotide intervals",
+    "description": ""
+  },
+  {
+    "title": "impact micrornas protein output",
+    "description": ""
+  },
+  {
+    "title": "micrornas modulate hematopoietic lineage differentiation",
+    "description": ""
+  },
+  {
+    "title": "metazoan micrornas",
+    "description": ""
+  },
+  {
+    "title": "micrornas regulatory roles plants",
+    "description": ""
+  },
+  {
+    "title": "micrornas plants",
+    "description": ""
+  },
+  {
+    "title": "prediction plant microrna targets",
+    "description": ""
+  },
+  {
+    "title": "lincrnas genomics evolution mechanisms",
+    "description": ""
+  },
+  {
+    "title": "computational identification plant micrornas targets including stressinduced mirna",
+    "description": ""
+  },
+  {
+    "title": "control developmental regulators polycomb human embryonic stem cells",
+    "description": ""
+  },
+  {
+    "title": "integrated encyclopedia dna elements human genome",
+    "description": ""
+  },
+  {
+    "title": "genotypetissue expression gtex project",
+    "description": ""
+  },
+  {
+    "title": "integrative analysis reference human epigenomes",
+    "description": ""
+  },
+  {
+    "title": "gencode reference human genome annotation encode project",
+    "description": ""
+  },
+  {
+    "title": "chromatin signature reveals thousand highly conserved large noncoding rnas mammals",
+    "description": ""
+  },
+  {
+    "title": "genotypetissue expression gtex pilot analysis multitissue gene regulation humans",
+    "description": ""
+  },
+  {
+    "title": "genetic effects gene expression across human tissues",
+    "description": ""
+  },
+  {
+    "title": "gtex consortium atlas genetic regulatory effects across human tissues",
+    "description": ""
+  },
+  {
+    "title": "mapping analysis chromatin state dynamics nine human cell types",
+    "description": ""
+  },
+  {
+    "title": "genome sequence comparative analysis haplotype structure domestic dog",
+    "description": ""
+  },
+  {
+    "title": "histone modifications human enhancers reflect global celltypespecific gene expression",
+    "description": ""
+  },
+  {
+    "title": "gencode reference annotation human mouse genomes",
+    "description": ""
+  },
+  {
+    "title": "discrete small rnagenerating loci master regulators transposon activity drosophila",
+    "description": ""
+  },
+  {
+    "title": "transcriptional regulatory code eukaryotic genome",
+    "description": ""
+  },
+  {
+    "title": "chromhmm automating chromatinstate discovery characterization",
+    "description": ""
+  },
+  {
+    "title": "pancancer analysis whole genomes",
+    "description": ""
+  },
+  {
+    "title": "haploreg resource exploring chromatin states conservation regulatory motif alterations within sets genetically linked variants",
+    "description": ""
+  },
+  {
+    "title": "systematic discovery regulatory motifs human promoters utrs comparison several mammals",
+    "description": ""
+  },
+  {
+    "title": "chipseq guidelines practices encode modencode consortia",
+    "description": ""
+  },
+  {
+    "title": "evolution genes genomes drosophila phylogeny",
+    "description": ""
+  },
+  {
+    "title": "multiplex genome engineering using crisprcas systems",
+    "description": ""
+  },
+  {
+    "title": "genome engineering using crisprcas system",
+    "description": ""
+  },
+  {
+    "title": "development applications crisprcas genome engineering",
+    "description": ""
+  },
+  {
+    "title": "millisecondtimescale genetically targeted optical control neural activity",
+    "description": ""
+  },
+  {
+    "title": "genomescale crisprcas knockout screening human cells",
+    "description": ""
+  },
+  {
+    "title": "dna targeting specificity rnaguided cas nucleases",
+    "description": ""
+  },
+  {
+    "title": "improved vectors genomewide libraries crispr screening",
+    "description": ""
+  },
+  {
+    "title": "cpf single rnaguided endonuclease class crisprcas system",
+    "description": ""
+  },
+  {
+    "title": "onestep generation mice carrying mutations multiple genes crisprcasmediated genome engineering",
+    "description": ""
+  },
+  {
+    "title": "double nicking rnaguided crispr cas enhanced genome editing specificity",
+    "description": ""
+  },
+  {
+    "title": "nucleic acid detection crisprcasacc",
+    "description": ""
+  },
+  {
+    "title": "vivogenome editing usingstaphylococcus aureuscas",
+    "description": ""
+  },
+  {
+    "title": "genomescale transcriptional activation engineered crisprcas complex",
+    "description": ""
+  },
+  {
+    "title": "rnaguided editing bacterial genomes using crisprcas systems",
+    "description": ""
+  },
+  {
+    "title": "parvalbumin neurons gamma rhythms enhance cortical circuit performance",
+    "description": ""
+  },
+  {
+    "title": "driving fastspiking cells induces gamma rhythm controls sensory responses",
+    "description": ""
+  },
+  {
+    "title": "rationally engineered cas nucleases improved specificity",
+    "description": ""
+  },
+  {
+    "title": "crystal structure cas complex guide rna target dna",
+    "description": ""
+  },
+  {
+    "title": "cc singlecomponent programmable rnaguided rnatargeting crispr effector",
+    "description": ""
+  },
+  {
+    "title": "multiplexed portable nucleic acid detection platform cas casa csm",
+    "description": ""
+  },
+  {
+    "title": "synthesis characterization nearly monodisperse cde e sulfur selenium tellurium semiconductor nanocrystallites",
+    "description": ""
+  },
+  {
+    "title": "synthesis characterization monodisperse nanocrystals closepacked nanocrystal assemblies",
+    "description": ""
+  },
+  {
+    "title": "cdse zns core shell quantum dots synthesis characterization size series highly luminescent nanocrystallites",
+    "description": ""
+  },
+  {
+    "title": "renal clearance quantum dots",
+    "description": ""
+  },
+  {
+    "title": "optical gain stimulated emission nanocrystal quantum dots",
+    "description": ""
+  },
+  {
+    "title": "electroluminescence single monolayers nanocrystals molecular organic devices",
+    "description": ""
+  },
+  {
+    "title": "selforganization cdse nanocrystallites threedimensional quantum dot superlattices",
+    "description": ""
+  },
+  {
+    "title": "emergence colloidal quantumdot lightemitting technologies",
+    "description": ""
+  },
+  {
+    "title": "nearinfrared fluorescent type ii quantum dots sentinel lymph node mapping",
+    "description": ""
+  },
+  {
+    "title": "fluorescence intermittency single cadmium selenide nanocrystals",
+    "description": ""
+  },
+  {
+    "title": "efficient perovskite solar cells via improved carrier management",
+    "description": ""
+  },
+  {
+    "title": "selfassembly cdse zns quantum dot bioconjugates using engineered recombinant protein",
+    "description": ""
+  },
+  {
+    "title": "improved performance stability quantum dot solar cells band alignment engineering",
+    "description": ""
+  },
+  {
+    "title": "bandedge exciton quantum dots semiconductors degenerate valence band dark bright exciton states",
+    "description": ""
+  },
+  {
+    "title": "physical chemistry",
+    "description": ""
+  },
+  {
+    "title": "quantization multiparticle auger rates semiconductor quantum dots",
+    "description": ""
+  },
+  {
+    "title": "typeii quantum dots cdtecdse coreshell cdseznte coreshell heterostructures",
+    "description": ""
+  },
+  {
+    "title": "quantum mechanics larger semiconductor clusters quantum dots",
+    "description": ""
+  },
+  {
+    "title": "fluorescence resonance energy transfer quantum dot donors dyelabeled protein acceptors",
+    "description": ""
+  },
+  {
+    "title": "measurement assignment sizedependent optical spectrum cdse quantum dots",
+    "description": ""
+  }
+]

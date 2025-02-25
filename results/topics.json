@@ -1,0 +1,156 @@
+[
+    {
+        "Topic": -1,
+        "Count": 33,
+        "Name": "-1_using_analysis_learning_stepsize",
+        "Representation": [
+            "using",
+            "analysis",
+            "learning",
+            "stepsize",
+            "principles",
+            "medial",
+            "surgery",
+            "climate",
+            "time",
+            "models"
+        ],
+        "Representative_Docs": [
+            "association medicaid expansion insurance status risk group receipt refusal treatment among men prostate cancer",
+            "subjective human interpretation domain expert perspectives navigating text analysis loop topic models",
+            "using magnetic resonance relaxometry evaluate safety quality induced pluripotent stem cellderived spinal cord progenitor cells"
+        ]
+    },
+    {
+        "Topic": 0,
+        "Count": 18,
+        "Name": "0_learning_network_approach_adversarial",
+        "Representation": [
+            "learning",
+            "network",
+            "approach",
+            "adversarial",
+            "control",
+            "wellbeing",
+            "maze",
+            "patients",
+            "ai",
+            "maximizing"
+        ],
+        "Representative_Docs": [
+            "digital phenotypic assessment neurooncology dano pilot study sociability changes patients undergoing treatment brain malignancies",
+            "domain adversarial convolutional neural network improves accuracy generalizability wearable sleep assessment technology",
+            "visual acuity outcomes influencing factors cohort uk realworld diabetic macular oedema patients first two years antivegf treatment"
+        ]
+    },
+    {
+        "Topic": 1,
+        "Count": 16,
+        "Name": "1_tev_measurement_collisions_protonproton",
+        "Representation": [
+            "tev",
+            "measurement",
+            "collisions",
+            "protonproton",
+            "decay",
+            "study",
+            "search",
+            "bosons",
+            "decays",
+            "fusion"
+        ],
+        "Representative_Docs": [
+            "measurement doublediferential inclusive jet cross section protonproton collisions tev",
+            "modelindependent search pair production new bosons decaying muons protonproton collisions tev",
+            "measurement boosted higgs bosons produced via vector boson fusion gluon fusion h bb decay mode using lhc protonproton collision data tev"
+        ]
+    },
+    {
+        "Topic": 2,
+        "Count": 11,
+        "Name": "2_flexible_advances_aptasensor_availability",
+        "Representation": [
+            "flexible",
+            "advances",
+            "aptasensor",
+            "availability",
+            "bioenergy",
+            "biomanufacturing",
+            "blocklockandkill",
+            "bonded",
+            "brief",
+            "commercial"
+        ],
+        "Representative_Docs": [
+            "listeria monocytogenes aptasensor laser inscribed graphene food safety monitoring hydroponic water",
+            "recent progress flexible piezoelectric tactile sensors materials structures fabrication application",
+            "thermogelation nanoemulsions stabilized commercial pea protein isolate highpressure homogenization defines gel strength"
+        ]
+    },
+    {
+        "Topic": 3,
+        "Count": 9,
+        "Name": "3_underwater_imaging_communications_mmwave",
+        "Representation": [
+            "underwater",
+            "imaging",
+            "communications",
+            "mmwave",
+            "holographic",
+            "color",
+            "contentadaptive",
+            "convolutions",
+            "camera",
+            "correlators"
+        ],
+        "Representative_Docs": [
+            "focal surface holographic light transport using learned spatially adaptive convolutions",
+            "seascan energyefficient underwater camera wireless color imaging",
+            "snooping underwater communications via lowcost mmwave radars"
+        ]
+    },
+    {
+        "Topic": 4,
+        "Count": 7,
+        "Name": "4_manufacturing_integrated_workforce_assessment",
+        "Representation": [
+            "manufacturing",
+            "integrated",
+            "workforce",
+            "assessment",
+            "american",
+            "advancing",
+            "emitters",
+            "devices",
+            "drip",
+            "dualreality"
+        ],
+        "Representative_Docs": [
+            "knitworkvr dualreality experience distributed sensoractuator networks living knitwork pavilion",
+            "american institute manufacturing integrated photonics advancing ecosystem",
+            "photonic integrated devices manufacturing workforce preparation assessment report middle skilled technicians"
+        ]
+    },
+    {
+        "Topic": 5,
+        "Count": 6,
+        "Name": "5_assembly_codes_codon_compartmentalization",
+        "Representation": [
+            "assembly",
+            "codes",
+            "codon",
+            "compartmentalization",
+            "genes",
+            "controls",
+            "cytotoxin",
+            "decoding",
+            "deuterium",
+            "dysfunction"
+        ],
+        "Representative_Docs": [
+            "decoding codon bias role trna modifications tissuespecific translation",
+            "taurine prevents mitochondrial dysfunction protects mitochondria reactive oxygen species deuterium toxicity",
+            "response regulator ompr negatively controls expression genes implicated tilimycin tilivalline cytotoxin production klebsiella oxytoca"
+        ]
+    }
+]
