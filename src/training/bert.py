@@ -7,6 +7,7 @@ from pathlib import Path
 
 # Paths for storing preprocessing results
 PAPERS_DATA_PATH = Path("data/processed/data_preprocessed.json")
+MODEL_LOCAL_PATH = "models/all-MiniLM-L6-v2"
 MODEL_PATH = "models/bertopic_model"
 EMBEDDING_PATH = "data/processed/embeddings.npy"
 TOPICS_PATH = "results/topics.json"
@@ -52,12 +53,17 @@ def compute_topics_with_bertopic(papers, save_model=True):
     texts = [paper["title"] for paper in papers]
     
     logging.info("Computing embeddings using SentenceTransformer.")
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-    embeddings = model.encode(texts)
-    # np.save(save_path, embeddings)
-    # logging.info(f"Embeddings saved at {save_path}")
 
-    # embeddings = compute_embeddings(texts)
+    if os.path.exists(MODEL_LOCAL_PATH):
+        model = SentenceTransformer(MODEL_LOCAL_PATH)  # Gunakan model dari lokal
+    else:
+        model = SentenceTransformer("all-MiniLM-L6-v2")  # Unduh dari Hugging Face
+        model.save(MODEL_LOCAL_PATH)  # Simpan untuk penggunaan selanjutnya
+    
+    # model = SentenceTransformer("all-MiniLM-L6-v2")
+    
+    embeddings = model.encode(texts)
+    
     retrain = True
 
     if retrain:
