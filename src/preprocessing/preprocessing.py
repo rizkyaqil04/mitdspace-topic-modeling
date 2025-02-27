@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 
 # Paths for storing preprocessing results
-SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_50.json")
+SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_10k.json")
 PREPROCESSED_DATA_PATH = "data/processed/data_preprocessed.json"
 LOG_FILE_PATH = "logs/preprocessing.log"
 
@@ -91,21 +91,3 @@ if __name__ == "__main__":
             preprocess_papers(papers)
         except Exception as e:
             logging.error(f"Error reading JSON file: {e}")
-
-#     # Cek apakah file hasil scraping tersedia
-#     if not os.path.exists(SCRAPED_DATA_PATH):
-#         print(f"⚠️  File '{SCRAPED_DATA_PATH}' tidak ditemukan. Jalankan 'scraping.py' terlebih dahulu.")
-#     else:
-#         # Load data dari file hasil scraping
-#         with open(SCRAPED_DATA_PATH, "r", encoding="utf-8") as f:
-#             papers = json.load(f)
-#
-#         # Preprocess data dan hapus duplikat
-#         cleaned_papers = preprocess_papers(papers)
-#
-#         # Simpan hasil preprocessing ke file baru
-#         with open(PREPROCESSED_DATA_PATH, "w", encoding="utf-8") as f:
-#             json.dump(cleaned_papers, f, indent=2, ensure_ascii=False)
-#
-#         print(f"✅ Preprocessing selesai! {len(cleaned_papers)} data unik disimpan dalam '{PREPROCESSED_DATA_PATH}'")
-#
