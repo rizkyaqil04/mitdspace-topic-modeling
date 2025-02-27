@@ -2,10 +2,10 @@ import os
 import json
 import logging
 from urllib.parse import urljoin, urlencode
+from src.scraping.check_playwright import ensure_playwright_installed
 
 # Paths for storing scraping results
-DATA_PATH = "data/raw/scholar_scraped.json"
-LOG_PATH = "logs/scholar_scraping.log"
+LOG_PATH = "logs/scraping.log"
 
 # Ensure directories exist
 os.makedirs("data/raw", exist_ok=True)
@@ -19,8 +19,17 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+# Ensure Playwright is installed
+install_status = ensure_playwright_installed()
+if install_status is True:
+    logging.info("Playwright installed.")
+elif install_status is False:
+    logging.error("Failed to install Playwright. Check your internet connection or try installing manually.")
+else:
+    logging.info("Playwright already installed.")
+
 # Function to scrape the author profile
-async def scrape_scholar_profiles(max_pages=5):
+async def scrape_scholar_profiles(max_pages): 
     from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
     from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
 
@@ -68,7 +77,7 @@ async def scrape_scholar_profiles(max_pages=5):
 
             page_count += 1
 
-    return all_profiles
+    return all_profiles, max_pages
 
 # Function to scrape authors publication
 async def scrape_publications(profile_name, profile_url):
@@ -109,10 +118,12 @@ async def scrape_publications(profile_name, profile_url):
 
     return formatted_publications
 
-async def scraping_data():
+async def scraping_data(max_pages=1):
     logging.info("Starting scholar scraping")
-    profiles = await scrape_scholar_profiles()
-    
+    profiles, max_pages = await scrape_scholar_profiles(max_pages)
+
+    data_path = f"data/raw/scholar_scraped_{20 * max_pages * 10}.json"
+
     all_papers = []
     for profile in profiles:
         profile_name = profile["name"]
@@ -125,10 +136,10 @@ async def scraping_data():
     if not all_papers:
         logging.error("No data scraped! Something went wrong.")
     
-    with open(DATA_PATH, "w", encoding="utf-8") as f:
+    with open(data_path, "w", encoding="utf-8") as f:
         json.dump(all_papers, f, ensure_ascii=False, indent=4)
     
-    logging.info(f"Scraped data saved to {DATA_PATH}")
+    logging.info(f"Scraped data saved to {data_path}")
     return all_papers
 
 if __name__ == "__main__":

@@ -3,10 +3,10 @@ import re
 import json
 import logging
 from datetime import datetime
+from src.scraping.check_playwright import ensure_playwright_installed
 
 # Paths for storing scraping results
-DATA_PATH = "data/raw/sinta_papers.json"
-LOG_FILE = "logs/scraper.log"
+LOG_PATH = "logs/scraping.log"
 
 # Ensure directories exist
 os.makedirs("data/raw", exist_ok=True)
@@ -19,8 +19,17 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+# Ensure Playwright is installed
+install_status = ensure_playwright_installed()
+if install_status is True:
+    logging.info("Playwright installed.")
+elif install_status is False:
+    logging.error("Failed to install Playwright. Check your internet connection or try installing manually.")
+else:
+    logging.info("Playwright already installed.")
+
 # Function to get max pages
-async def get_max_pages(query):
+async def get_max_pages(query, max_pages): 
     logging.info(f"🔍 Mendeteksi jumlah halaman untuk query: {query}")
 
     from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
@@ -51,25 +60,25 @@ async def get_max_pages(query):
             if pagination_text:
                 match = re.search(r"Page \d+ of (\d+)", pagination_text[0]["pagination"])
                 if match:
-                    max_pages = int(match.group(1))
-                    logging.info(f"📄 Ditemukan {max_pages} halaman untuk query '{query}'")
+                    pages = int(match.group(1))
+                    logging.info(f"📄 Ditemukan {pages} halaman untuk query '{query}'")
 
-                    return 50 if max_pages > 50 else max_pages # Sesuaikan jumlah halaman dan maksimal halaman
-
+                    return max_pages if pages > max_pages else pages
 
         except Exception as e:
             logging.error(f"⚠️ Gagal mendapatkan jumlah halaman: {e}")
 
     return 1  # Default jika tidak ditemukan
 
-# Functi Functionto scrape the papers
-async def scraping_data(query):
+# Function to scrape the papers
+async def scraping_data(query, max_pages=20):
     logging.info(f"🚀 Memulai scraping data untuk query: {query}")
 
     from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
     from crawl4ai.extraction_strategy import JsonCssExtractionStrategy
     
-    max_pages = await get_max_pages(query)
+    max_pages = await get_max_pages(query, max_pages)
+    data_path = f"data/raw/sinta_scraped_{10 * max_pages}.json"
 
     schema = {
         "name": "Sinta Papers",
@@ -106,9 +115,9 @@ async def scraping_data(query):
 
     # Simpan hasil scraping ke file JSON
     try:
-        with open(DATA_PATH, "w", encoding="utf-8") as f:
+        with open(data_path, "w", encoding="utf-8") as f:
             json.dump(all_papers, f, ensure_ascii=False, indent=4)
-        logging.info(f"📁 Data scraping berhasil disimpan di {DATA_PATH}")
+        logging.info(f"📁 Data scraping berhasil disimpan di {data_path}")
 
     except Exception as e:
         logging.error(f"❌ Gagal menyimpan file JSON: {e}")

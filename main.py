@@ -14,15 +14,14 @@ PROCESSED_DIR = DATA_DIR / "processed"
 RESULTS_DIR = Path("results")
 MODELS_DIR = Path("models")
 
-SCRAPED_FILE = RAW_DIR / "mit_scraped.json"
+# SCRAPED_FILE = RAW_DIR / "mit_scraped.json"
 PREPROCESSED_FILE = PROCESSED_DIR / "data_preprocessed.json"
 CLUSTERING_FILE = RESULTS_DIR / "topics.json"
 MODEL_PATH = MODELS_DIR / "bertopic_model"
 
 async def main():
-    print(f"using data from {SCRAPED_FILE}")
+    # print(f"Using data from {SCRAPED_FILE}")
 
-    from src.scraping.mit_scraping import scraping_data
     from src.preprocessing.preprocessing import preprocess_papers
     from src.training.bert import compute_topics_with_bertopic
 
@@ -34,18 +33,54 @@ async def main():
 
     # ===============================================================================================
     # 🔍 Checking for existing scraped data
-    if SCRAPED_FILE.exists():
+    async def scrape_data():
+        logging.info("🚀 Choose scraping source:")
+        print("1. Sinta\n2. Scholar\n3. MIT")
+        choice = input("Enter choice (1/2/3): ").strip()
+        
+        if choice == "1":
+            from src.scraping.sinta_scraping import scraping_data as sinta_scraping
+            query = input("Enter search query: ").strip()
+            max_pages = int(input("Enter max pages: "))
+            return await sinta_scraping(query, max_pages)
+        elif choice == "2":
+            from src.scraping.scholar_scraping import scraping_data as scholar_scraping
+            max_pages = int(input("Enter max pages: "))
+            return await scholar_scraping(max_pages)
+        elif choice == "3":
+            from src.scraping.mit_scraping import scraping_data as mit_scraping
+            title_per_page = int(input("Enter titles per page: "))
+            max_pages = int(input("Enter max pages: "))
+            return await mit_scraping(title_per_page, max_pages)
+        else:
+            logging.error("❌ Invalid choice. Exiting.")
+            return None
+    
+    if any(RAW_DIR.glob("*.json")):
         logging.info("✅ Scraped data found!")
         rescrape = input("🔄 Rescrape data? (y/n): ").strip().lower()
         if rescrape == "y":
-            logging.info("🚀 Rescraping...")
-            papers = await scraping_data()
+            papers = await scrape_data()
         else:
-            logging.info("➡ Using existing scraped data.")
-            papers = json.loads(SCRAPED_FILE.read_text(encoding="utf-8"))
+            logging.info("➡ Available scraped files in 'data/raw':")
+            files = list(RAW_DIR.glob("*.json"))
+            if not files:
+                logging.error("❌ No existing scraped files found!")
+                return
+            
+            for idx, file in enumerate(files, 1):
+                print(f"{idx}. {file.name}")
+            file_choice = int(input("Select a file number: ")) - 1
+            if 0 <= file_choice < len(files):
+                SCRAPED_FILE = files[file_choice]
+                papers = json.loads(SCRAPED_FILE.read_text(encoding="utf-8"))
+            else:
+                logging.error("❌ Invalid selection. Exiting.")
+                return
     else:
         logging.info("❌ Scraped data not found! Scraping now...")
-        papers = await scraping_data()
+        papers = await scrape_data()
+    
     logging.info("✅ Scraping complete!")
 
     # ===============================================================================================
@@ -77,7 +112,6 @@ async def main():
     try:
         topic_model, topics = compute_topics_with_bertopic(cleaned_papers)
         topic_info = topic_model.get_topic_info()
-
     except Exception as e:
         logging.error(f"❌ Error in BERTopic processing: {e}")
         return
@@ -99,4 +133,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-

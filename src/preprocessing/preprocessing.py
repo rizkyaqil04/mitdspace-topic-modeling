@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 
 # Paths for storing preprocessing results
-SCRAPED_DATA_PATH = Path("data/raw/mit_scraped.json")
+SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_50.json")
 PREPROCESSED_DATA_PATH = "data/processed/data_preprocessed.json"
 LOG_FILE_PATH = "logs/preprocessing.log"
 
@@ -30,7 +30,7 @@ def clean_text(text):
 
     try:
         # Ensure necessary NLTK resources are downloaded
-        nltk.download("punkt", quiet=True)
+        nltk.download("punkt_tab", quiet=True)
         nltk.download("stopwords", quiet=True)
         nltk.download("wordnet", quiet=True)
 

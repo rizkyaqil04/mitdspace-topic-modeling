@@ -120,13 +120,14 @@ DSPACE_TITLES_TOPIC_MODELING/
 ---
 
 ## Cara Menjalankan
-Anda dapat langsung mengeksekusinya melalui :
+Cara mudah untuk mengeksekusi program nya dapat melalui command :
  ```bash
    python main.py
    ```
 
-1. **Persiapkan dataset**: Pastikan file yang diperlukan tersedia di dalam folder `data/`.
-2. **Jalankan scraping**:
+Atau dapat mengeksekusinya secara manual:
+1. **Persiapkan dataset**: Pastikan file yang diperlukan tersedia di dalam folder `data/`. jika belum lakukan **scraping**
+2. **Jalankan scraping**: (data default yang digunakan adalah dari `mit_scraping.py`)
    ```bash
    python src/scraping/mit_scraping.py
    python src/scraping/scholar_scraping.py

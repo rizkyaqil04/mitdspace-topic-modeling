@@ -44,13 +44,20 @@ def compute_embeddings(texts, save_path=EMBEDDING_PATH):
 
 def compute_topics_with_bertopic(papers, save_model=True):
     """ Train BERTopic using HDBSCAN and c-TFIDF """
+    from sentence_transformers import SentenceTransformer
     from bertopic import BERTopic
     from umap import UMAP
     from hdbscan import HDBSCAN
     
     texts = [paper["title"] for paper in papers]
+    
+    logging.info("Computing embeddings using SentenceTransformer.")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
+    embeddings = model.encode(texts)
+    # np.save(save_path, embeddings)
+    # logging.info(f"Embeddings saved at {save_path}")
 
-    embeddings = compute_embeddings(texts)
+    # embeddings = compute_embeddings(texts)
     retrain = True
 
     if retrain:
@@ -62,7 +69,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
             umap_model=umap_model,
             hdbscan_model=hdbscan_model,
             vectorizer_model=None,
-            embedding_model="all-MiniLM-L6-v2"
+            embedding_model=model
         )
         
         topic_model.fit_transform(texts, embeddings)
