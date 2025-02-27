@@ -75,7 +75,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
             umap_model=umap_model,
             hdbscan_model=hdbscan_model,
             vectorizer_model=None,
-            embedding_model=model
+            embedding_model="all-MiniLM-L6-v2"
         )
         
         topic_model.fit_transform(texts, embeddings)
