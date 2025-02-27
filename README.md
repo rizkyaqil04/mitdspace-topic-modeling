@@ -1,6 +1,6 @@
 # DSPACE_TITLES_TOPIC_MODELING
 
-Using BERTopic for topic modeling of titles in dspace.mit.edu
+Implementasi MLOps untuk Pemodelan Topik dengan BERTopic dari Judul di DSpace MIT
 
 ---
 
@@ -19,7 +19,7 @@ DSPACE_TITLES_TOPIC_MODELING menggunakan **BERTopic** untuk mengekstraksi topik 
 1. **Pengumpulan dan Penyimpanan Data** 
    - Data dikumpulkan secara otomatis melalui web scraping menggunakan **Crawl4AI**, yang mengambil judul paper dari **dspace.mit.edu**.
    - Hasil scraping disimpan dalam **JSON file** di direktori `data/raw/`, memastikan data tetap ringan dan mudah diakses.
-   - Pipeline dijalankan secara terjadwal menggunakan **Github Actions**, memungkinkan proses scraping terjadi pada interval waktu tertentu.
+   - Pipeline dijalankan secara terjadwal menggunakan **Github Actions**, memungkinkan proses scraping terjadi pada tiap hari Senin pada pukul 05.00.
 
 2. **Preprocessing dan Embedding**
    - Data diproses menggunakan **NLTK**, mencakup:
