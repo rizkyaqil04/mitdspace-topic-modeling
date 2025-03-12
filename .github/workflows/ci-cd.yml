@@ -27,7 +27,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Scraping
-        run: python src/scraping/scraping.py
+        run: python src/scraping/mit_scraping.py
 
       - name: Run Preprocessing
         run: python src/preprocessing/preprocessing.py
