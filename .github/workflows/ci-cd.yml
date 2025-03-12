@@ -1,12 +1,9 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  schedule:
+    - cron: '0 0 1 * *'  # Menjalankan setiap tanggal 1 jam 00:00 UTC
+  workflow_dispatch:  # Opsi untuk menjalankan workflow secara manual dari GitHub Actions
 
 jobs:
   pipeline:
