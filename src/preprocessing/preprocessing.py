@@ -135,13 +135,9 @@ if __name__ == "__main__":
             logging.info(f"Loaded {len(papers)} records from '{SCRAPED_DATA_PATH}'")
             processed_papers = preprocess_papers(papers)
             
-            # Keep just the "title" item from the data
+            # Features Extraction
             texts = [paper["title"] for paper in processed_papers]
-            
-            # Compute Embeddings 
             compute_embeddings(texts)
-
-            # Compute TF-IDF
             compute_tfidf(texts)
 
         except Exception as e:
