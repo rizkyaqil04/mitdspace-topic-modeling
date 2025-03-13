@@ -32,16 +32,22 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
-def compute_embeddings(texts, save_path=EMBEDDING_PATH):
-    """ Compute embeddings from texts using SentenceTransformer """
-    from sentence_transformers import SentenceTransformer
+# def compute_embeddings(texts, save_path=EMBEDDING_PATH):
+#     """Compute and save embeddings if not already saved."""
+#     from sentence_transformers import SentenceTransformer
+
+#     if Path(save_path).exists():
+#         logging.info(f"Loading existing embeddings from {save_path}")
+#         return np.load(save_path)
     
-    logging.info("Computing embeddings using SentenceTransformer.")
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-    embeddings = model.encode(texts)
-    np.save(save_path, embeddings)
-    logging.info(f"Embeddings saved at {save_path}")
-    return embeddings
+#     logging.info("Computing embeddings using SentenceTransformer.")
+#     model = SentenceTransformer("all-MiniLM-L6-v2")
+#     embeddings = model.encode(texts, batch_size=32, show_progress_bar=True, normalize_embeddings=True)
+#     np.save(save_path, embeddings)
+#     logging.info(f"Embeddings saved at {save_path}")
+    
+#     return embeddings
+
 
 def compute_topics_with_bertopic(papers, save_model=True):
     """ Train BERTopic using HDBSCAN and c-TFIDF """
@@ -60,9 +66,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
         model = SentenceTransformer("all-MiniLM-L6-v2")  # Unduh dari Hugging Face
         model.save(MODEL_LOCAL_PATH)  # Simpan untuk penggunaan selanjutnya
     
-    # model = SentenceTransformer("all-MiniLM-L6-v2")
-    
-    embeddings = model.encode(texts)
+    embeddings = np.load(EMBEDDING_PATH)
     
     retrain = True
 
@@ -74,7 +78,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
         topic_model = BERTopic(
             umap_model=umap_model,
             hdbscan_model=hdbscan_model,
-            vectorizer_model=None,
+            vectorizer_model=None, # menggunakan c-TFIDF
             embedding_model=model
         )
         

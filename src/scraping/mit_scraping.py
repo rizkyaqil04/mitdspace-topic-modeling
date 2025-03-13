@@ -28,7 +28,7 @@ else:
     logging.info("Playwright already installed.")
 
 # Scraping function
-async def scraping_data(title_per_page = 250, max_pages = 40): 
+async def scraping_data(title_per_page = 100, max_pages = 5): 
     logging.info("Starting scraping process")
 
     from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
