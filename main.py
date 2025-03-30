@@ -22,7 +22,7 @@ MODEL_PATH = MODELS_DIR / "bertopic_model"
 async def main():
     # print(f"Using data from {SCRAPED_FILE}")
 
-    from src.preprocessing.preprocessing import preprocess_papers
+    from src.preprocessing.preprocessing import preprocess_papers, compute_embeddings
     from src.training.bert import compute_topics_with_bertopic
 
     # Ensure directories exist
@@ -91,6 +91,8 @@ async def main():
         if reprocess == "y":
             logging.info("🚀 Reprocessing...")
             cleaned_papers = preprocess_papers(papers)
+            texts = [paper["title"] for paper in cleaned_papers]
+            compute_embeddings(texts)
             PREPROCESSED_FILE.write_text(json.dumps(cleaned_papers, indent=2, ensure_ascii=False), encoding="utf-8")
         else:
             logging.info("➡ Using existing preprocessed data.")
@@ -98,6 +100,8 @@ async def main():
     else:
         logging.info("❌ Preprocessed data not found! Preprocessing now...")
         cleaned_papers = preprocess_papers(papers)
+        texts = [paper["title"] for paper in cleaned_papers]
+        compute_embeddings(texts)
         PREPROCESSED_FILE.write_text(json.dumps(cleaned_papers, indent=2, ensure_ascii=False), encoding="utf-8")
 
     logging.info("✅ Preprocessing complete!")
