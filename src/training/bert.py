@@ -4,6 +4,7 @@ import random
 import logging
 import numpy as np
 from pathlib import Path
+from src.utils.logger import setup_logger
 
 # Paths for storing preprocessing results
 PAPERS_DATA_PATH = Path("data/processed/data_preprocessed.json")
@@ -11,43 +12,19 @@ MODEL_LOCAL_PATH = "models/all-MiniLM-L6-v2"
 MODEL_PATH = "models/bertopic_model"
 EMBEDDING_PATH = "data/processed/embeddings.npy"
 TOPICS_PATH = "results/topics.json"
-LOG_PATH = "logs/training.log"
 
 # Ensure directories exist
 os.makedirs("data/processed", exist_ok=True)
 os.makedirs("models", exist_ok=True)
 os.makedirs("results", exist_ok=True)
-os.makedirs("logs", exist_ok=True)
 
-# Configure logging
-logging.basicConfig(
-    filename=LOG_PATH,
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+# Configure Logging
+logger = setup_logger("training")
 
 # Configure the seed
 SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
-
-# def compute_embeddings(texts, save_path=EMBEDDING_PATH):
-#     """Compute and save embeddings if not already saved."""
-#     from sentence_transformers import SentenceTransformer
-
-#     if Path(save_path).exists():
-#         logging.info(f"Loading existing embeddings from {save_path}")
-#         return np.load(save_path)
-    
-#     logging.info("Computing embeddings using SentenceTransformer.")
-#     model = SentenceTransformer("all-MiniLM-L6-v2")
-#     embeddings = model.encode(texts, batch_size=32, show_progress_bar=True, normalize_embeddings=True)
-#     np.save(save_path, embeddings)
-#     logging.info(f"Embeddings saved at {save_path}")
-    
-#     return embeddings
-
 
 def compute_topics_with_bertopic(papers, save_model=True):
     """ Train BERTopic using HDBSCAN and c-TFIDF """

@@ -4,25 +4,19 @@ import json
 import logging
 import numpy as np
 from pathlib import Path
+from src.utils.logger import setup_logger
 
 # Paths for storing preprocessing results
 SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_500.json")
 PREPROCESSED_DATA_PATH = Path("data/processed/data_preprocessed.json")
 EMBEDDING_PATH = Path("data/processed/embeddings.npy")
 TFIDF_FEATURES_PATH = Path("data/processed/tfidf_features.json")
-LOG_FILE_PATH = Path("logs/preprocessing.log")
 
 # Ensure directories exist
 os.makedirs("data/processed", exist_ok=True)
-os.makedirs("logs", exist_ok=True)
 
-# Configure logging
-logging.basicConfig(
-    filename=LOG_FILE_PATH,
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+# Configure Logging
+logger = setup_logger("preprocessing")
 
 def clean_text(text):
     """ Cleans text by removing special characters, numbers, and stopwords, and applying lemmatization. """
@@ -37,9 +31,6 @@ def clean_text(text):
         nltk.download("stopwords", quiet=True)
         nltk.download("wordnet", quiet=True)
 
-        # Initialize stopwords and lemmatizer
-        # stopword_factory = StopWordRemoverFactory()
-        # stopwords_id = set(stopword_factory.get_stop_words())
         stopwords_en = set(stopwords.words("english"))
         lemmatizer = WordNetLemmatizer()
 
@@ -49,7 +40,6 @@ def clean_text(text):
         text = re.sub(r"[^\w\s]", "", text)  # Remove punctuation
         tokens = word_tokenize(text)  # Tokenization
         tokens = [lemmatizer.lemmatize(word) for word in tokens]  # Lemmatization
-        # tokens = [word for word in tokens if word not in stopwords_id and word not in stopwords_en]  # Remove stopwords
         tokens = [word for word in tokens if word not in stopwords_en]  # Remove stopwords
 
         return " ".join(tokens)

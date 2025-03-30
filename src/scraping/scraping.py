@@ -1,22 +1,14 @@
 import os
 import json
 import logging
+from src.utils.logger import setup_logger
 from src.scraping.check_playwright import ensure_playwright_installed
-
-# Paths for storing logs
-LOG_PATH = "logs/scraping.log"
 
 # Ensure directories exist
 os.makedirs("data/raw", exist_ok=True)
-os.makedirs("logs", exist_ok=True)
 
-# Configure logging
-logging.basicConfig(
-    filename=LOG_PATH,
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
-)
+# Configure Logging
+logger = setup_logger("scraping")
 
 # Ensure Playwright is installed
 install_status = ensure_playwright_installed()
@@ -77,7 +69,7 @@ async def scraping_data(title_per_page = 100, max_pages = 5):
 
     logging.info(f"Scraped data saved to {data_path}, total papers: {len(all_papers)}")
     
-    return all_papers, data_path
+    return all_papers
 
 if __name__ == "__main__":
     import asyncio

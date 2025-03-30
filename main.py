@@ -34,27 +34,11 @@ async def main():
     # ===============================================================================================
     # 🔍 Checking for existing scraped data
     async def scrape_data():
-        logging.info("🚀 Choose scraping source:")
-        print("1. Sinta\n2. Scholar\n3. MIT")
-        choice = input("Enter choice (1/2/3): ").strip()
-        
-        if choice == "1":
-            from src.scraping.sinta_scraping import scraping_data as sinta_scraping
-            query = input("Enter search query: ").strip()
-            max_pages = int(input("Enter max pages: "))
-            return await sinta_scraping(query, max_pages)
-        elif choice == "2":
-            from src.scraping.scholar_scraping import scraping_data as scholar_scraping
-            max_pages = int(input("Enter max pages: "))
-            return await scholar_scraping(max_pages)
-        elif choice == "3":
-            from src.scraping.mit_scraping import scraping_data as mit_scraping
-            title_per_page = int(input("Enter titles per page: "))
-            max_pages = int(input("Enter max pages: "))
-            return await mit_scraping(title_per_page, max_pages)
-        else:
-            logging.error("❌ Invalid choice. Exiting.")
-            return None
+        from src.scraping.scraping import scraping_data as mit_scraping
+        title_per_page = int(input("Enter titles per page: "))
+        max_pages = int(input("Enter max pages: "))
+        return await mit_scraping(title_per_page, max_pages)
+   
     
     if any(RAW_DIR.glob("*.json")):
         logging.info("✅ Scraped data found!")
