@@ -1,0 +1,64 @@
+[
+    {
+        "title": "The American Institute for Manufacturing Integrated Photonics: advancing the ecosystem",
+        "author": "Koch, Thomas L.",
+        "publisher": "SPIE",
+        "date": "2106-02",
+        "abstract": "The American Institute for Manufacturing Integrated Photonics (AIM Photonics) is focused on developing an end-to-end integrated photonics ecosystem in the U.S., including domestic foundry access, integrated design tools, ..."
+    },
+    {
+        "title": "How do we interpret the outputs of a neural network trained on classification?",
+        "author": "Yudi, Xie",
+        "publisher": "International Conference on Learning Representations",
+        "date": "2025-04-28",
+        "abstract": "Deep neural networks are widely used for classification tasks, but the interpretation of their output activations is often unclear. This tutorial article explains\r\nhow these outputs can be understood as approximations of ..."
+    },
+    {
+        "title": "Fulfillment models framework for e-commerce companies",
+        "author": "Bellido, Juan Manuel",
+        "date": "2025-04-02",
+        "abstract": "E-commerce relevance is increasing, and companies should be prepared to fulfill customers’ expectations and ensure an optimal shopping experience. Online worldwide retail sales generated 70 billion U.S. dollars in 2019, ..."
+    },
+    {
+        "title": "Determining optimal inventory positions in an urban network",
+        "author": "Briceño Tipacti, Juan Pablo",
+        "date": "2025-04-02",
+        "abstract": "Supply chain networks are becoming increasingly complex due to the aggressive growth of multiple digital trends, like the rise of e-commerce and the increased customer expectations, which have been enhanced through the ..."
+    },
+    {
+        "title": "Minimizing last-mile emissions through altitude-aware route optimization",
+        "author": "De Abreu Rodrigues, Gustavo",
+        "date": "2025-04-02",
+        "abstract": "This study introduced an exact optimization approach to solve a new special type of Travelling Salesperson Problem. This problem considers time-windows restrictions and a new objective function—the objective regards driver ..."
+    },
+    {
+        "title": "Encourage circular practices in the supply chain",
+        "author": "Goitia Polo, Alejandro Jorge",
+        "date": "2025-04-02",
+        "abstract": "Every year 300 million tons of plastic waste are produced, and the amount of plastic produced increases with the world population. The more people there are on the planet, the more waste is produced. The concepts of circular ..."
+    },
+    {
+        "title": "Reduction of Costs and Emissions in Outbound Transport",
+        "author": "Amazonas Machado, Leonardo",
+        "date": "2025-04-02",
+        "abstract": "The global food system accounts for nearly 30% of the total CO2 emissions worldwide. About 19% of that figure is due to transportation-related emissions. The main problem being addressed in this project is to identify the ..."
+    },
+    {
+        "title": "Buy, Rent and Sale: Chasing better cash flows",
+        "author": "Do Couto Selem, Ana Patricia",
+        "date": "2025-04-02",
+        "abstract": "This capstone project optimizes the inventory levels of a rental car company and improves the cash-to-cash cycle. The solution approach is a Mixed Integer Linear Program (MILP) model, considering a multiple-period inventory. ..."
+    },
+    {
+        "title": "Causal inference improving warehouse productivity: zoned storage and killer items",
+        "author": "Montemurri, David",
+        "date": "2025-04-02",
+        "abstract": "E-commerce companies need help with customer service experience: faster and more frequent deliveries. Then, order fulfillment becomes critical to establish a competitive advantage.\r\nThe main objective of this project is ..."
+    },
+    {
+        "title": "Reducing food losses by improving the efficiency of the banana supply chain in the Antioquia corridor in Colombia",
+        "author": "Sethuramanujam, Ananthakumar",
+        "date": "2025-04-02",
+        "abstract": "In 2011, the Food and Agricultural Organization of the United Nations (FAO) estimated that one-third of the food produced in the world for human consumption was lost or wasted (FAO, 2021d). Ten years later, a World Wildlife ..."
+    }
+]
