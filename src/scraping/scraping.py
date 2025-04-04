@@ -1,6 +1,8 @@
 import os
 import json
 import logging
+import subprocess
+import shutil
 from src.utils.logger import setup_logger
 from src.scraping.check_playwright import ensure_playwright_installed
 
@@ -11,6 +13,17 @@ os.makedirs("data/raw", exist_ok=True)
 logger = setup_logger("scraping")
 
 # Ensure Playwright is installed
+def ensure_playwright_installed():
+    """Memeriksa dan menginstal Playwright jika belum tersedia."""
+    if shutil.which("playwright") is None:
+        try:
+            subprocess.run(["python", "-m", "pip", "install", "--upgrade", "playwright"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(["python", "-m", "playwright", "install"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            return True  
+        except subprocess.CalledProcessError:
+            return False  
+    return None
+
 install_status = ensure_playwright_installed()
 if install_status is True:
     logging.info("Playwright installed.")
