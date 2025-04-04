@@ -4,7 +4,6 @@ import logging
 import subprocess
 import shutil
 from src.utils.logger import setup_logger
-from src.scraping.check_playwright import ensure_playwright_installed
 
 # Ensure directories exist
 os.makedirs("data/raw", exist_ok=True)
