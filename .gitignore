@@ -4,6 +4,6 @@ __pycache__/
 *.pyo
 *.npy
 #*.json
-models/*
-logs/*
-results/*
+models/
+logs/
+results/
