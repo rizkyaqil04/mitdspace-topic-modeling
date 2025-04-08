@@ -11,6 +11,7 @@ Implementasi MLOps untuk Pemodelan Topik dengan BERTopic dari Judul di DSpace MI
 4. [Struktur Direktori](#struktur-direktori)
 5. [Cara Menjalankan](#cara-menjalankan)
 6. [Cara Menggunakan](#cara-menggunakan)
+7. [Link URL API untuk Melihat Hasil Scraping](#link-url-api-untuk-melihat-hasil-scraping)
 
 ---
 
@@ -170,3 +171,7 @@ Atau dapat mengeksekusinya secara manual:
   topics, probs = topic_model.transform(new_titles)
   print(topics)
   ```
+## Link URL API untuk Melihat Hasil Scraping 
+```
+https://laughing-umbrella-69vxr4qrrrrph5qr6-8000.app.github.dev/b/preprocessed
+```
