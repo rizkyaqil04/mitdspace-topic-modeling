@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from fastapi import FastAPI
 import json
 from pathlib import Path
@@ -7,6 +8,17 @@ app = FastAPI()
 PREPROCESSED_DATA_PATH = Path("data/processed/data_preprocessed.json")
 
 @app.get("/preprocessed")
+=======
+from fastapi import APIRouter
+import json
+from pathlib import Path
+
+router = APIRouter()
+
+PREPROCESSED_DATA_PATH = Path("data/processed/data_preprocessed.json")
+
+@router.get("/preprocessed")
+>>>>>>> Aqill's
 async def get_preprocessed_data():
     """
     Mengembalikan hasil preprocessing dalam bentuk JSON.

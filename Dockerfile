@@ -9,7 +9,11 @@ COPY . /app
 
 # Install dependencies
 RUN pip install --no-cache-dir --upgrade pip \
+<<<<<<< HEAD
     && pip install --no-cache-dir -r requirements.txt
+=======
+    && pip install --no-cache-dir -r requirements-dev.txt
+>>>>>>> Aqill's
 
 RUN playwright install --with-deps chromium
 
@@ -17,4 +21,8 @@ RUN playwright install --with-deps chromium
 EXPOSE 8000
 
 # Jalankan aplikasi FastAPI
+<<<<<<< HEAD
 CMD ["uvicorn", "run_api:app", "--host", "0.0.0.0", "--port", "8000"]
+=======
+CMD ["uvicorn", "run_api:app", "--host", "0.0.0.0", "--port", "8000", "--timeout-keep-alive", "300"]
+>>>>>>> Aqill's
