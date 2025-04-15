@@ -15,5 +15,8 @@ async def scrape_data():
 
     # Jalankan preprocessing
     preprocessed_data = preprocessor.preprocess_papers(scraped_data)
+    texts = [paper["title"] for paper in preprocessed_data]
+    preprocessor.compute_embeddings(texts)
+    preprocessor.compute_tfidf(texts)
 
     return {"message": "Scraping & preprocessing completed"}
