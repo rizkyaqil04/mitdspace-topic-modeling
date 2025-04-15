@@ -44,9 +44,9 @@ def train_topic_model():
 
         return {
             "message": "Training completed successfully.",
-            "num_topics": len(topic_info),
+            # "num_topics": len(topic_info),
             "coherence_score": coherence_score,
-            "example_topics": topic_info.head(5).to_dict(orient="records")
+            # "example_topics": topic_info.head(5).to_dict(orient="records")
         }
     except Exception as e:
         logger.exception("Error during training.")

@@ -24,5 +24,5 @@ def preprocess_data():
 
     return {
         "message": "Preprocessing & feature extraction completed.",
-        "num_processed": len(preprocessed_data)
+        # "num_processed": len(preprocessed_data)
     }

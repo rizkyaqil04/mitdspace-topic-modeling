@@ -92,12 +92,10 @@ def compute_embeddings(texts, save_path=EMBEDDING_PATH):
     
     logging.info("Computing embeddings using SentenceTransformer.")
     
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-    
     if os.path.exists(MODEL_LOCAL_PATH):
         model = SentenceTransformer(MODEL_LOCAL_PATH)  # Gunakan model dari lokal
     else:
-        model = SentenceTransformer("all-MiniLM-L6-v2")  # Unduh dari Hugging Face
+        model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')  # Unduh dari Hugging Face
         model.save(MODEL_LOCAL_PATH)  # Simpan untuk penggunaan selanjutnya
     
     embeddings = model.encode(texts, batch_size=32, show_progress_bar=True, normalize_embeddings=True)

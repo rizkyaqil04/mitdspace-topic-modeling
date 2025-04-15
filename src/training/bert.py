@@ -42,7 +42,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
     if os.path.exists(MODEL_LOCAL_PATH):
         model = SentenceTransformer(MODEL_LOCAL_PATH)  # Gunakan model dari lokal
     else:
-        model = SentenceTransformer("all-MiniLM-L6-v2")  # Unduh dari Hugging Face
+        model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')  # Unduh dari Hugging Face
         model.save(MODEL_LOCAL_PATH)  # Simpan untuk penggunaan selanjutnya
     
     embeddings = np.load(EMBEDDING_PATH)
