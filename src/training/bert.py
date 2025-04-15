@@ -4,6 +4,8 @@ import random
 import logging
 import numpy as np
 from pathlib import Path
+from gensim.models.coherencemodel import CoherenceModel
+from gensim.corpora.dictionary import Dictionary
 from src.utils.logger import setup_logger
 
 # Paths for storing preprocessing results
@@ -49,7 +51,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
 
     if retrain:
         logging.info("Training a new BERTopic model.")
-        umap_model = UMAP(n_neighbors=15, n_components=5, min_dist=0.0, metric="cosine", random_state=SEED)
+        umap_model = UMAP(n_neighbors=10, n_components=5, min_dist=0.0001, metric="cosine", random_state=SEED)
         hdbscan_model = HDBSCAN(min_cluster_size=5, metric="euclidean", cluster_selection_method="eom", prediction_data=True)
 
         topic_model = BERTopic(
@@ -71,6 +73,29 @@ def compute_topics_with_bertopic(papers, save_model=True):
     topics, _ = topic_model.transform(texts)
     return topic_model, [int(t) for t in topics]
 
+def compute_coherence_score(topic_model, tokenized_texts, top_n=10):
+    """Compute coherence score using preprocessed tokenized texts"""
+    # Buat dictionary dan corpus dari teks tokenized
+    dictionary = Dictionary(tokenized_texts)
+    corpus = [dictionary.doc2bow(text) for text in tokenized_texts]
+
+    # Ambil top-k kata dari setiap topik
+    topic_words = []
+    for topic_id in range(len(topic_model.get_topics())):
+        topic = topic_model.get_topic(topic_id)
+        if topic:  # hanya jika topik tidak kosong / bukan False
+            words = [word for word, _ in topic[:top_n]]
+            topic_words.append(words)
+
+
+    coherence_model = CoherenceModel(
+        topics=topic_words,
+        texts=tokenized_texts,
+        dictionary=dictionary,
+        coherence='c_v'
+    )
+    return coherence_model.get_coherence()
+
 if __name__ == "__main__":
     if not PAPERS_DATA_PATH.exists():
         logging.error(f"File {PAPERS_DATA_PATH} not found!")
@@ -79,6 +104,13 @@ if __name__ == "__main__":
     logging.info("Loading data from JSON file.")
     papers = json.loads(PAPERS_DATA_PATH.read_text(encoding="utf-8"))
     topic_model, topics = compute_topics_with_bertopic(papers)
+
+    # Tokenized texts from preprocessed file
+    tokenized_titles = [paper["title"].split() for paper in papers]
+
+    # Compute coherence score
+    coherence = compute_coherence_score(topic_model, tokenized_titles)
+    logging.info(f"Coherence Score (c_v): {coherence:.4f}")
 
     # Displaying topic count
     topic_info = topic_model.get_topic_info()
