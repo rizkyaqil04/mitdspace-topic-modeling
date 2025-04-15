@@ -1,10 +1,10 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 import src.scraping.scraping as scraper
 import src.preprocessing.preprocessing as preprocessor
 
-app = FastAPI()
+router = APIRouter()
 
-@app.post("/scrape")
+@router.post("/scrape")
 async def scrape_data():
     """
     Scraping otomatis dari MIT dan langsung menyimpan hasilnya.

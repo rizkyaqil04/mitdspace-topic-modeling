@@ -85,9 +85,9 @@ def compute_embeddings(texts, save_path=EMBEDDING_PATH):
     """Compute and save embeddings if not already saved."""
     from sentence_transformers import SentenceTransformer
 
-    if Path(save_path).exists():
-        logging.info(f"Loading existing embeddings from {save_path}")
-        return np.load(save_path)
+    # if Path(save_path).exists():
+    #     logging.info(f"Loading existing embeddings from {save_path}")
+    #     return np.load(save_path)
     
     logging.info("Computing embeddings using SentenceTransformer.")
     model = SentenceTransformer("all-MiniLM-L6-v2")

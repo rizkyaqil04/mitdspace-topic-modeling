@@ -1,12 +1,12 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 import json
 from pathlib import Path
 
-app = FastAPI()
+router = APIRouter()
 
 PREPROCESSED_DATA_PATH = Path("data/processed/data_preprocessed.json")
 
-@app.get("/preprocessed")
+@router.get("/preprocessed")
 async def get_preprocessed_data():
     """
     Mengembalikan hasil preprocessing dalam bentuk JSON.
