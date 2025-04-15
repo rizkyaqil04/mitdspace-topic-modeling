@@ -6,7 +6,7 @@ import json
 import logging
 import numpy as np
 
-from src.training.bert import compute_topics_with_bertopic
+from src.training.bert import compute_topics_with_bertopic, compute_coherence_score
 from src.utils.logger import setup_logger
 
 logger = setup_logger("api_training")
@@ -31,11 +31,13 @@ def train_topic_model():
     try:
         logger.info("Loading preprocessed papers...")
         papers = json.loads(PAPERS_DATA_PATH.read_text(encoding="utf-8"))
+        titles = [paper["title"] for paper in papers]
 
         logger.info("Training BERTopic model...")
         topic_model, topics = compute_topics_with_bertopic(papers)
 
-        coherence_score = topic_model.get_coherence()
+        tokenized_titles = [title.split() for title in titles]
+        coherence_score = compute_coherence_score(topic_model, tokenized_titles)
         topic_info = topic_model.get_topic_info()
 
         logger.info(f"Training done. Topics found: {len(topic_info)}. Coherence: {coherence_score:.4f}")

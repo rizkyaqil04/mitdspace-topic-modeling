@@ -4,3 +4,4 @@ crawl4ai
 playwright
 bertopic
 sentence_transformers
+gensim
