@@ -50,9 +50,15 @@ def compute_topics_with_bertopic(papers, save_model=True):
     retrain = True
 
     if retrain:
-        logging.info("Training a new BERTopic model.")
-        umap_model = UMAP(n_neighbors=10, n_components=5, min_dist=0.0001, metric="cosine", random_state=SEED)
-        hdbscan_model = HDBSCAN(min_cluster_size=5, metric="euclidean", cluster_selection_method="eom", prediction_data=True)
+        n_neighbors = 4
+        n_components = 5
+        min_dist = 0.093
+        min_cluster_size = 20
+
+        logging.info(f"Training a new BERTopic model. with n_neighbors = {n_neighbors}, n_components = {n_components}, min_dist = {min_dist}, min_cluster_size = {min_cluster_size}")
+        
+        umap_model = UMAP(n_neighbors=n_neighbors, n_components=n_components, min_dist=min_dist, metric="cosine", random_state=SEED)
+        hdbscan_model = HDBSCAN(min_cluster_size=min_cluster_size, metric="euclidean", cluster_selection_method="eom", prediction_data=True)
 
         topic_model = BERTopic(
             umap_model=umap_model,
@@ -73,7 +79,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
     topics, _ = topic_model.transform(texts)
     return topic_model, [int(t) for t in topics]
 
-def compute_coherence_score(topic_model, tokenized_texts, top_n=10):
+def compute_coherence_score(topic_model, tokenized_texts, top_n=3):
     """Compute coherence score using preprocessed tokenized texts"""
     # Buat dictionary dan corpus dari teks tokenized
     dictionary = Dictionary(tokenized_texts)

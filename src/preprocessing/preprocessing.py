@@ -7,7 +7,7 @@ from pathlib import Path
 from src.utils.logger import setup_logger
 
 # Paths for storing preprocessing results
-SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_500.json")
+SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_10k.json")
 PREPROCESSED_DATA_PATH = Path("data/processed/data_preprocessed.json")
 MODEL_LOCAL_PATH = "models/all-MiniLM-L6-v2"
 EMBEDDING_PATH = Path("data/processed/embeddings.npy")
