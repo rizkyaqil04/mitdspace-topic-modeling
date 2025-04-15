@@ -9,7 +9,7 @@ COPY . /app
 
 # Install dependencies
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip install --no-cache-dir -r requirements-dev.txt
 
 RUN playwright install --with-deps chromium
 
