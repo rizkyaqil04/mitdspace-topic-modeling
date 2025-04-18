@@ -1,4 +1,5 @@
 import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import json
 import random
 import logging
@@ -50,9 +51,9 @@ def compute_topics_with_bertopic(papers, save_model=True):
     retrain = True
 
     if retrain:
-        n_neighbors = 4
-        n_components = 5
-        min_dist = 0.093
+        n_neighbors = 15
+        n_components = 15
+        min_dist = 0.01
         min_cluster_size = 20
 
         logging.info(f"Training a new BERTopic model. with n_neighbors = {n_neighbors}, n_components = {n_components}, min_dist = {min_dist}, min_cluster_size = {min_cluster_size}")

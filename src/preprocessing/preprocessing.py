@@ -7,7 +7,7 @@ from pathlib import Path
 from src.utils.logger import setup_logger
 
 # Paths for storing preprocessing results
-SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_10k.json")
+SCRAPED_DATA_PATH = Path("data/raw/mit_scraped_1000.json")
 PREPROCESSED_DATA_PATH = Path("data/processed/data_preprocessed.json")
 MODEL_LOCAL_PATH = "models/all-MiniLM-L6-v2"
 EMBEDDING_PATH = Path("data/processed/embeddings.npy")
@@ -65,7 +65,11 @@ def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
                     cleaned_paper[key] = value  # If its not, then ignore it
 
             # Using tuple to check any duplicate
-            paper_key = tuple(cleaned_paper.values())
+            # paper_key = tuple(cleaned_paper.values())
+            paper_key = tuple(
+                tuple(v) if isinstance(v, list) else v
+                for v in cleaned_paper.values()
+            )
 
             if paper_key not in seen:
                 seen.add(paper_key)
