@@ -9,38 +9,51 @@ import numpy as np
 from src.training.bert import compute_topics_with_bertopic, compute_coherence_score
 from src.utils.logger import setup_logger
 
-logger = setup_logger("api_training")
-
 router = APIRouter()
+logger = setup_logger("training_svc")
 
 # Path to the preprocessed data
 PAPERS_DATA_PATH = Path("data/processed/data_preprocessed.json")
 EMBEDDING_PATH = Path("data/processed/embeddings.npy")
+TOPICS_PATH = Path("results/topics.json")
 
 @router.post("/train")
 def train_topic_model():
-    # Load preprocessed data
-    if not PAPERS_DATA_PATH.exists():
-        logger.error(f"File {PAPERS_DATA_PATH} not found.")
-        return {"error": "Preprocessed data not found."}
-    
-    if not EMBEDDING_PATH.exists():
-        logger.error(f"File {EMBEDDING_PATH} not found.")
-        return {"error": "Embeddings file not found. Please run preprocessing first."}
-    
+    """
+    Melakukan training menggunakan BERTopic.
+    """
+
     try:
+        # Load preprocessed data
+        if not PAPERS_DATA_PATH.exists():
+            logger.error(f"File {PAPERS_DATA_PATH} not found.")
+            return {"error": "Preprocessed data not found."}
+
+        if not EMBEDDING_PATH.exists():
+            logger.error(f"File {EMBEDDING_PATH} not found.")
+            return {"error": "Embeddings file not found. Please run preprocessing first."}
+
         logger.info("Loading preprocessed papers...")
         papers = json.loads(PAPERS_DATA_PATH.read_text(encoding="utf-8"))
         titles = [paper["title"] for paper in papers]
+        logger.info(f"Loaded {len(papers)} papers for training.")
 
         logger.info("Training BERTopic model...")
         topic_model, topics = compute_topics_with_bertopic(papers)
+        logger.info("BERTopic model trained.")
 
         tokenized_titles = [title.split() for title in titles]
-        coherence_score = compute_coherence_score(topic_model, tokenized_titles)
-        topic_info = topic_model.get_topic_info()
 
-        logger.info(f"Training done. Topics found: {len(topic_info)}. Coherence: {coherence_score:.4f}")
+        logger.info("Computing coherence score...")
+        coherence_score = compute_coherence_score(topic_model, tokenized_titles)
+        logger.info(f"Coherence Score: {coherence_score:.4f}")
+
+        topic_info = topic_model.get_topic_info()
+        logger.info(f"Training done. {len(topic_info)} topics found.")
+
+        # Simpan hasil topik ke file
+        logger.info(f"Saving topic information to {TOPICS_PATH}")
+        logger.info("Topic information saved.")
 
         return {
             "message": "Training completed successfully.",
@@ -51,3 +64,4 @@ def train_topic_model():
     except Exception as e:
         logger.exception("Error during training.")
         return {"error": str(e)}
+

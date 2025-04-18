@@ -1,4 +1,0 @@
-fastapi
-uvicorn
-crawl4ai
-playwright
