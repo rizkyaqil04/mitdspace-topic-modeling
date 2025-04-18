@@ -49,7 +49,7 @@ def clean_text(text):
         return ""
 
 def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
-    """Cleans all text fields in the dataset without relying on specific column names."""
+    """Cleans all text fields in the dataset, including list-of-strings fields like authors."""
     seen = set()
     cleaned_papers = []
 
@@ -57,15 +57,16 @@ def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
         for paper in papers:
             cleaned_paper = {}
 
-            # Clean for every items in data
             for key, value in paper.items():
-                if isinstance(value, str):  # Only item that has texts in it
+                if isinstance(value, str):
                     cleaned_paper[key] = clean_text(value)
+                elif isinstance(value, list) and all(isinstance(item, str) for item in value):
+                    combined = " ".join(value)
+                    cleaned_paper[key] = clean_text(combined)
                 else:
-                    cleaned_paper[key] = value  # If its not, then ignore it
+                    cleaned_paper[key] = value
 
-            # Using tuple to check any duplicate
-            # paper_key = tuple(cleaned_paper.values())
+            # Buat kunci unik dari nilai-nilainya
             paper_key = tuple(
                 tuple(v) if isinstance(v, list) else v
                 for v in cleaned_paper.values()
@@ -75,7 +76,6 @@ def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
                 seen.add(paper_key)
                 cleaned_papers.append(cleaned_paper)
 
-        # Save preprocessing results to file
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(cleaned_papers, f, indent=2, ensure_ascii=False)
 
@@ -84,7 +84,6 @@ def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
     except Exception as e:
         logging.error(f"Error in preprocess_papers: {e}")
         return []
-
 
 def compute_embeddings(texts, save_path=EMBEDDING_PATH):
     """Compute and save embeddings if not already saved."""
