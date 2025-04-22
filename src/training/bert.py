@@ -52,9 +52,9 @@ def compute_topics_with_bertopic(papers, save_model=True):
     retrain = True
 
     if retrain:
-        n_neighbors = 15
-        n_components = 15
-        min_dist = 0.01
+        n_neighbors = 4
+        n_components = 5
+        min_dist = 0.093
         min_cluster_size = 20
 
         logging.info(f"Training a new BERTopic model. with n_neighbors = {n_neighbors}, n_components = {n_components}, min_dist = {min_dist}, min_cluster_size = {min_cluster_size}")
@@ -117,10 +117,12 @@ if __name__ == "__main__":
     # Mulai eksperimen MLflow
     with mlflow.start_run():
         mlflow.log_param("embedding_model", "all-MiniLM-L6-v2")
-        mlflow.log_param("umap_n_neighbors", 15)
-        mlflow.log_param("umap_n_components", 15)
-        mlflow.log_param("umap_min_dist", 0.01)
+        mlflow.log_param("umap_n_neighbors", 4)
+        mlflow.log_param("umap_n_components", 5)
+        mlflow.log_param("umap_min_dist", 0.093)
         mlflow.log_param("hdbscan_min_cluster_size", 20)
+        mlflow.log_param("top_n", 3)
+
 
         topic_model, topics = compute_topics_with_bertopic(papers)
 
@@ -145,4 +147,4 @@ if __name__ == "__main__":
 
         # Simpan model ke MLflow artifact
         mlflow.log_artifact(TOPICS_PATH)
-        mlflow.log_artifact(MODEL_PATH)  # jika ingin simpan model path juga
+        mlflow.log_artifact(MODEL_PATH)  
