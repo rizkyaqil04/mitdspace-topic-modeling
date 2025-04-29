@@ -22,4 +22,3 @@ def setup_logger(log_name):
         logger.addHandler(file_handler)
 
     return logger
-
