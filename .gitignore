@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.npy
-#*.json
+*.json
 models/
 logs/
 results/
