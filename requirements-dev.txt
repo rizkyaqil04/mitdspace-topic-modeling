@@ -5,3 +5,4 @@ playwright
 bertopic
 sentence_transformers
 gensim
+mlflow
