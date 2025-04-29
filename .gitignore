@@ -9,3 +9,4 @@ logs/
 results/
 tfidf_features.json
 secrets/
+dvc-env/
