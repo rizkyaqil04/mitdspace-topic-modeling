@@ -8,6 +8,8 @@ models/
 logs/
 results/
 tfidf_features.json
+mlruns/
 secrets/
 dvc-env/
-mlruns/
+data/raw/
+data/processed/
