@@ -24,3 +24,4 @@ async def scrape_data():
     except Exception as e:
         logger.exception("Terjadi kesalahan saat scraping.")
         return {"error": str(e)}
+

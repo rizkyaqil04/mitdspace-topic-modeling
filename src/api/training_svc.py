@@ -53,6 +53,11 @@ def train_topic_model():
 
         # Simpan hasil topik ke file
         logger.info(f"Saving topic information to {TOPICS_PATH}")
+
+        TOPICS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(TOPICS_PATH, "w", encoding="utf-8") as f:
+            json.dump(topic_info.to_dict(orient="records"), f, indent=4)
+
         logger.info("Topic information saved.")
 
         return {
@@ -61,6 +66,7 @@ def train_topic_model():
             "coherence_score": coherence_score,
             "example_topics": topic_info.head(5).to_dict(orient="records")
         }
+
     except Exception as e:
         logger.exception("Error during training.")
         return {"error": str(e)}

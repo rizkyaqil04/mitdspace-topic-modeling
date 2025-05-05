@@ -43,3 +43,4 @@ def preprocess_data():
     except Exception as e:
         logger.exception("Error during preprocessing.")
         return {"error": str(e)}
+

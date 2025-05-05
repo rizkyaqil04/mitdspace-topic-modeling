@@ -27,3 +27,4 @@ async def get_preprocessed_data():
     except Exception as e:
         logger.exception("Terjadi kesalahan saat membaca data preprocessing.")
         return {"error": str(e)}
+
