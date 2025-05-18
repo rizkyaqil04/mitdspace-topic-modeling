@@ -136,23 +136,27 @@ if __name__ == "__main__":
     
     mlflow.set_experiment("bertopic_experiment")
 
+    topic_model, topics = compute_topics_with_bertopic(papers)
+
     # Tokenized texts from preprocessed file
     tokenized_titles = [paper["title"].split() for paper in papers]
 
     # Compute coherence score
     coherence = compute_coherence_score(topic_model, tokenized_titles)
-    coherence_score_metric.set(coherence)
+    mlflow.log_metric("coherence_score", coherence)
     logging.info(f"Coherence Score (c_v): {coherence:.4f}")
 
     # Displaying topic count
     topic_info = topic_model.get_topic_info()
-    num_topics_metric.set(topic_info)
     num_topics = len(topic_info)
-    
+    mlflow.log_metric("num_topics", num_topics)
     logging.info(f"Total Topics Found: {num_topics}")
-    
+
     # Save topic list to a file
     with open(TOPICS_PATH, "w", encoding="utf-8") as f:
         json.dump(topic_info.to_dict(orient="records"), f, indent=4)
-    
     logging.info(f"Topics saved to {TOPICS_PATH}")
+
+    # Simpan model ke MLflow artifact
+    mlflow.log_artifact(TOPICS_PATH)
+    mlflow.log_artifact(MODEL_PATH)  
