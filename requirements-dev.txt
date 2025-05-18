@@ -6,3 +6,4 @@ bertopic
 sentence_transformers
 gensim
 mlflow
+prometheus_client
