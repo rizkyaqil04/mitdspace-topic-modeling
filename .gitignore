@@ -13,3 +13,4 @@ secrets/
 dvc-env/
 data/raw/
 data/processed/
+/data
