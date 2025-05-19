@@ -28,6 +28,13 @@ num_topics_metric = Gauge(
     'Number of topics discovered by the BERTopic model'
 )
 
+training_alert_metric = Gauge(
+    'bertopic_training_alert', 
+    '1 if training failed or was poor quality, 0 if OK'
+)
+
+training_alert_metric.set(0)
+
 # Paths for storing preprocessing results
 PAPERS_DATA_PATH = Path("data/processed/data_preprocessed.json")
 MODEL_LOCAL_PATH = "models/all-MiniLM-L6-v2"
@@ -51,55 +58,60 @@ np.random.seed(SEED)
 @training_duration.time()
 def compute_topics_with_bertopic(papers, save_model=True):
     """ Train BERTopic using HDBSCAN and c-TFIDF """
-    from sentence_transformers import SentenceTransformer
-    from bertopic import BERTopic
-    from umap import UMAP
-    from hdbscan import HDBSCAN
-    
-    texts = [paper["title"] for paper in papers]
-    
-    logging.info("Computing embeddings using SentenceTransformer.")
-
-    if os.path.exists(MODEL_LOCAL_PATH):
-        model = SentenceTransformer(MODEL_LOCAL_PATH)  # Gunakan model dari lokal
-    else:
-        model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')  # Unduh dari Hugging Face
-        model.save(MODEL_LOCAL_PATH)  # Simpan untuk penggunaan selanjutnya
-    
-    embeddings = np.load(EMBEDDING_PATH)
-    
-    retrain = True
-
-    if retrain:
-        n_neighbors = 4
-        n_components = 5
-        min_dist = 0.093
-        min_cluster_size = 20
-
-        logging.info(f"Training a new BERTopic model. with n_neighbors = {n_neighbors}, n_components = {n_components}, min_dist = {min_dist}, min_cluster_size = {min_cluster_size}")
+    try:
+        from sentence_transformers import SentenceTransformer
+        from bertopic import BERTopic
+        from umap import UMAP
+        from hdbscan import HDBSCAN
         
-        umap_model = UMAP(n_neighbors=n_neighbors, n_components=n_components, min_dist=min_dist, metric="cosine", random_state=SEED)
-        hdbscan_model = HDBSCAN(min_cluster_size=min_cluster_size, metric="euclidean", cluster_selection_method="eom", prediction_data=True)
-
-        topic_model = BERTopic(
-            umap_model=umap_model,
-            hdbscan_model=hdbscan_model,
-            vectorizer_model=None, # menggunakan c-TFIDF
-            embedding_model=model
-        )
+        texts = [paper["title"] for paper in papers]
         
-        topic_model.fit_transform(texts, embeddings)
-        num_topics_metric.set(len(topic_model.get_topic_info()))
+        logging.info("Computing embeddings using SentenceTransformer.")
 
-        if save_model:
-            topic_model.save(MODEL_PATH)
-            logging.info(f"Model saved at {MODEL_PATH}")
-    else:
-        logging.info("Loading existing BERTopic model.")
-        topic_model = BERTopic.load(MODEL_PATH)
+        if os.path.exists(MODEL_LOCAL_PATH):
+            model = SentenceTransformer(MODEL_LOCAL_PATH)  # Gunakan model dari lokal
+        else:
+            model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')  # Unduh dari Hugging Face
+            model.save(MODEL_LOCAL_PATH)  # Simpan untuk penggunaan selanjutnya
+        
+        embeddings = np.load(EMBEDDING_PATH)
+        
+        retrain = True
 
-    topics, _ = topic_model.transform(texts)
-    return topic_model, [int(t) for t in topics]
+        if retrain:
+            n_neighbors = 3
+            n_components = 5
+            min_dist = 0.093
+            min_cluster_size = 20
+
+            logging.info(f"Training a new BERTopic model. with n_neighbors = {n_neighbors}, n_components = {n_components}, min_dist = {min_dist}, min_cluster_size = {min_cluster_size}")
+            
+            umap_model = UMAP(n_neighbors=n_neighbors, n_components=n_components, min_dist=min_dist, metric="cosine", random_state=SEED)
+            hdbscan_model = HDBSCAN(min_cluster_size=min_cluster_size, metric="euclidean", cluster_selection_method="eom", prediction_data=True)
+
+            topic_model = BERTopic(
+                umap_model=umap_model,
+                hdbscan_model=hdbscan_model,
+                vectorizer_model=None, # menggunakan c-TFIDF
+                embedding_model=model
+            )
+            
+            topic_model.fit_transform(texts, embeddings)
+            num_topics_metric.set(len(topic_model.get_topic_info()))
+
+            if save_model:
+                topic_model.save(MODEL_PATH)
+                logging.info(f"Model saved at {MODEL_PATH}")
+        else:
+            logging.info("Loading existing BERTopic model.")
+            topic_model = BERTopic.load(MODEL_PATH)
+
+        topics, _ = topic_model.transform(texts)
+        return topic_model, [int(t) for t in topics]
+    except Exception as e: 
+        training_alert_metric.set(1)
+        return None, []
+        
 
 def compute_coherence_score(topic_model, tokenized_texts, top_n=3):
     """Compute coherence score using preprocessed tokenized texts"""

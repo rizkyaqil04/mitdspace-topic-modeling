@@ -69,5 +69,7 @@ def train_topic_model():
 
     except Exception as e:
         logger.exception("Error during training.")
+        
         return {"error": str(e)}
 
+    

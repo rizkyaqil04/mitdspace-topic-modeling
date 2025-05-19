@@ -6,6 +6,24 @@ import subprocess
 import shutil
 from datetime import datetime
 from src.utils.logger import setup_logger
+from prometheus_client import start_http_server, Summary, Gauge
+import time
+
+num_documents_metric = Gauge(
+    'bertopic_num_documents', 
+    'Number of documents used to train the BERTopic model'
+)
+scraping_duration = Summary(
+    'bertopic_scraping_duration_seconds',
+    'Time spent scraping the data for BERTopic'
+)
+
+scraping_alert_metric = Gauge(
+    'bertopic_scraping_alert', 
+    '1 if scraping failed or was poor quality, 0 if OK'
+)
+
+scraping_alert_metric.set(0)
 
 # Ensure directories exist
 os.makedirs("data/raw", exist_ok=True)
@@ -34,6 +52,7 @@ else:
     logging.info("Playwright already installed.")
 
 # Scraping function
+@scraping_duration.time()
 async def scraping_data(title_per_page = 100, max_pages = 1): 
     logging.info("Starting scraping process")
 
@@ -115,6 +134,7 @@ async def scraping_data(title_per_page = 100, max_pages = 1):
 
             except Exception as e:
                 logging.error(f"Error scraping page {page}: {str(e)}")
+                scraping_alert_metric.set(1)
                 break
 
 
@@ -185,6 +205,7 @@ async def scraping_data(title_per_page = 100, max_pages = 1):
                 logging.info(f"Page {page}: Scraped {len(papers)} papers")
             except Exception as e:
                 logging.error(f"Error scraping page {page}: {str(e)}")
+                scraping_alert_metric.set(1)
 
 
     # Save to JSON
@@ -193,6 +214,7 @@ async def scraping_data(title_per_page = 100, max_pages = 1):
         json.dump(all_papers, f, ensure_ascii=False, indent=4)
 
     logging.info(f"Scraped data saved to {data_path}, total papers: {len(all_papers)}")
+    num_documents_metric.set(len(texts))    
     
     return all_papers
 
