@@ -1,3 +1,5 @@
+dvc
+dvc[gdrive]
 fastapi
 uvicorn
 crawl4ai
@@ -6,3 +8,4 @@ bertopic
 sentence_transformers
 gensim
 mlflow
+prometheus_client

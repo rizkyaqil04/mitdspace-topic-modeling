@@ -9,6 +9,24 @@ from pathlib import Path
 from gensim.models.coherencemodel import CoherenceModel
 from gensim.corpora.dictionary import Dictionary
 from src.utils.logger import setup_logger
+from prometheus_client import start_http_server, Summary, Gauge
+import time
+
+# Definisikan metrik Prometheus
+training_duration = Summary(
+    'bertopic_training_duration_seconds', 
+    'Time spent training the BERTopic model'
+)
+
+coherence_score_metric = Gauge(
+    'bertopic_coherence_score', 
+    'Coherence score of the BERTopic model'
+)
+
+num_topics_metric = Gauge(
+    'bertopic_num_topics', 
+    'Number of topics discovered by the BERTopic model'
+)
 
 # Paths for storing preprocessing results
 PAPERS_DATA_PATH = Path("data/processed/data_preprocessed.json")
@@ -30,6 +48,7 @@ SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
+@training_duration.time()
 def compute_topics_with_bertopic(papers, save_model=True):
     """ Train BERTopic using HDBSCAN and c-TFIDF """
     from sentence_transformers import SentenceTransformer
@@ -70,6 +89,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
         )
         
         topic_model.fit_transform(texts, embeddings)
+        num_topics_metric.set(len(topic_model.get_topic_info()))
 
         if save_model:
             topic_model.save(MODEL_PATH)
@@ -102,6 +122,8 @@ def compute_coherence_score(topic_model, tokenized_texts, top_n=3):
         dictionary=dictionary,
         coherence='c_v'
     )
+
+    coherence_score_metric.set(coherence_model.get_coherence())
     return coherence_model.get_coherence()
 
 if __name__ == "__main__":
@@ -114,37 +136,28 @@ if __name__ == "__main__":
     
     mlflow.set_experiment("bertopic_experiment")
 
-    # Mulai eksperimen MLflow
-    with mlflow.start_run():
-        mlflow.log_param("embedding_model", "all-MiniLM-L6-v2")
-        mlflow.log_param("umap_n_neighbors", 4)
-        mlflow.log_param("umap_n_components", 5)
-        mlflow.log_param("umap_min_dist", 0.093)
-        mlflow.log_param("hdbscan_min_cluster_size", 20)
-        mlflow.log_param("top_n", 3)
+    topic_model, topics = compute_topics_with_bertopic(papers)
 
+    # Tokenized texts from preprocessed file
+    tokenized_titles = [paper["title"].split() for paper in papers]
 
-        topic_model, topics = compute_topics_with_bertopic(papers)
+    # Compute coherence score
+    coherence = compute_coherence_score(topic_model, tokenized_titles)
+    mlflow.log_metric("coherence_score", coherence)
+    logging.info(f"Coherence Score (c_v): {coherence:.4f}")
 
-        # Tokenized texts from preprocessed file
-        tokenized_titles = [paper["title"].split() for paper in papers]
+    # Displaying topic count
+    topic_info = topic_model.get_topic_info()
+    num_topics = len(topic_info)
 
-        # Compute coherence score
-        coherence = compute_coherence_score(topic_model, tokenized_titles)
-        mlflow.log_metric("coherence_score", coherence)
-        logging.info(f"Coherence Score (c_v): {coherence:.4f}")
+    mlflow.log_metric("num_topics", num_topics)
+    logging.info(f"Total Topics Found: {num_topics}")
 
-        # Displaying topic count
-        topic_info = topic_model.get_topic_info()
-        num_topics = len(topic_info)
-        mlflow.log_metric("num_topics", num_topics)
-        logging.info(f"Total Topics Found: {num_topics}")
+    # Save topic list to a file
+    with open(TOPICS_PATH, "w", encoding="utf-8") as f:
+        json.dump(topic_info.to_dict(orient="records"), f, indent=4)
+    logging.info(f"Topics saved to {TOPICS_PATH}")
 
-        # Save topic list to a file
-        with open(TOPICS_PATH, "w", encoding="utf-8") as f:
-            json.dump(topic_info.to_dict(orient="records"), f, indent=4)
-        logging.info(f"Topics saved to {TOPICS_PATH}")
-
-        # Simpan model ke MLflow artifact
-        mlflow.log_artifact(TOPICS_PATH)
-        mlflow.log_artifact(MODEL_PATH)  
+    # Simpan model ke MLflow artifact
+    mlflow.log_artifact(TOPICS_PATH)
+    mlflow.log_artifact(MODEL_PATH)  

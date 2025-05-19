@@ -34,7 +34,7 @@ else:
     logging.info("Playwright already installed.")
 
 # Scraping function
-async def scraping_data(title_per_page = 100, max_pages = 5): 
+async def scraping_data(title_per_page = 100, max_pages = 1): 
     logging.info("Starting scraping process")
 
     from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
@@ -71,22 +71,52 @@ async def scraping_data(title_per_page = 100, max_pages = 5):
     logging.info("Stage 1: Collecting detail URLs...")
 
     async with AsyncWebCrawler() as crawler:
-        
+        url = "https://dspace.mit.edu/discover"
+
         for page in range(1, max_pages + 1):
-            url = f"https://dspace.mit.edu/discover?rpp={title_per_page}&etal=0&group_by=none&page={page}&sort_by=dc.date.issued_dt&order=desc"
-            logging.info(f"Scraping page {page}: {url}")
+            logging.info(f"Scraping page {page}...")
+
+            js_code = []
+            wait_for = None
+
+            if page == 1:
+                js_code = [
+                    "document.querySelector('a[href*=\"sort_by=dc.date.issued_dt\"][href*=\"order=desc\"]')?.click();",
+                    "await new Promise(resolve => setTimeout(resolve, 10000));",
+                    f"document.querySelector('a[href*=\\\"rpp={title_per_page}\\\"]')?.click();",
+                    "await new Promise(resolve => setTimeout(resolve, 10000));"
+                ]
+                wait_for = "div.ds-artifact-item"
+
+            elif page > 1:
+                js_code = ["document.querySelector('a.next-page-link')?.click();"]
+                wait_for = "div.ds-artifact-item"
+
+
             try:
-                result = await crawler.arun(url=url,config = CrawlerRunConfig(
-                    cache_mode=CacheMode.BYPASS,
-                    extraction_strategy=link_strategy,
-                    page_timeout=120_000
-                ))
+                result = await crawler.arun(
+                    url=url,
+                    config=CrawlerRunConfig(
+                        cache_mode=CacheMode.BYPASS,
+                        extraction_strategy=link_strategy,
+                        js_code=js_code,
+                        wait_for=wait_for,
+                        page_timeout=120_000
+                    )
+                )
+
                 links = json.loads(result.extracted_content)
-                [link.update({"doi": "https://dspace.mit.edu" + link["doi"]}) for link in links if link.get("doi", "").startswith("/handle/")]
+                for link in links:
+                    if link.get("doi", "").startswith("/handle/"):
+                        link["doi"] = "https://dspace.mit.edu" + link["doi"]
                 detail_links.extend(links)
-                logging.info(f"Page {page}: Scraped {len(links)} papers")
+
+                logging.info(f"Page {page}: Scraped {len(links)} links")
+
             except Exception as e:
                 logging.error(f"Error scraping page {page}: {str(e)}")
+                break
+
 
 
         # Step 2: 
