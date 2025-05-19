@@ -1,5 +1,5 @@
 dvc
-'dvc[gdrive]'
+dvc[gdrive]
 fastapi
 uvicorn
 crawl4ai

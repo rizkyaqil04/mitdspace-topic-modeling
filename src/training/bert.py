@@ -12,8 +12,6 @@ from src.utils.logger import setup_logger
 from prometheus_client import start_http_server, Summary, Gauge
 import time
 
-start_http_server(8001)
-
 # Definisikan metrik Prometheus
 training_duration = Summary(
     'bertopic_training_duration_seconds', 
@@ -91,6 +89,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
         )
         
         topic_model.fit_transform(texts, embeddings)
+        num_topics_metric.set(len(topic_model.get_topic_info()))
 
         if save_model:
             topic_model.save(MODEL_PATH)
@@ -124,6 +123,7 @@ def compute_coherence_score(topic_model, tokenized_texts, top_n=3):
         coherence='c_v'
     )
 
+    coherence_score_metric.set(coherence_model.get_coherence())
     return coherence_model.get_coherence()
 
 if __name__ == "__main__":
@@ -149,6 +149,7 @@ if __name__ == "__main__":
     # Displaying topic count
     topic_info = topic_model.get_topic_info()
     num_topics = len(topic_info)
+
     mlflow.log_metric("num_topics", num_topics)
     logging.info(f"Total Topics Found: {num_topics}")
 
