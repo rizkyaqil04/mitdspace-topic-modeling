@@ -23,8 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install dvc[gdrive]
-          pip install -r requirements.txt
+          pip install dvc dvc[gdrive]
+          # pip install -r requirements.txt
 
       - name: Write GDrive credentials to file
         run: |
