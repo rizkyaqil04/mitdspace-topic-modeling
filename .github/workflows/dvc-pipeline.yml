@@ -29,7 +29,7 @@ jobs:
       - name: Write GDrive credentials to file
         run: |
           mkdir -p secrets
-          echo "${{ secrets.GDRIVE_SA_JSON }}" > secrets/gdrive-sa.json
+          echo "${{ secrets.GDRIVE_SA_JSON }}" | base64 --decode > secrets/gdrive-sa.json
 
       - name: Pull data & model from GDrive
         run: dvc pull
