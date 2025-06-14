@@ -31,7 +31,7 @@ scrape_configs:
         labels:
           app: "prometheus"
 
-  - job_name: "monitoring"
+  - job_name: "trainer"
     metrics_path: "/monitoring"
     static_configs:
-      - targets: ["dspace_titles_topic_modeling-web-1:8000"]
+      - targets: ["trainer:8000"]

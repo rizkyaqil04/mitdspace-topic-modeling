@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 *.npy
 *.json
+.pytest_cache
 models/
 logs/
 results/
@@ -15,3 +16,4 @@ data/raw/
 data/processed/
 /data
 test/
+/models
