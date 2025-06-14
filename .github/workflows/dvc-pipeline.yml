@@ -23,8 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install dvc dvc[gdrive]
           pip install "pyOpenSSL<24.2.1" "cryptography<43"
+          pip install dvc[gdrive]
 
       - name: Write GDrive credentials to file
         run: |
