@@ -1,7 +1,7 @@
 stages:
   scrape:
     cmd: |
-      pip install -r services/scraper/requirements.txt 
+      pip install -r services/scraper/requirements.txt
       playwright install --with-deps chromium
       echo $(date) > data/raw/mit_scraped_0.json
       python services/scraper/main.py --title_per_page 20 --max_pages 50
@@ -11,30 +11,28 @@ stages:
       - services/scraper/requirements.txt
       - data/raw/mit_scraped_0.json
     outs:
-      - data/raw/mit_scraped_1000.json
+      - data/raw/
 
   preprocess:
     cmd: |
-      pip install -r services/preprocessor/requirements.txt 
-      python services/preprocessor/main.py --input data/raw/mit_scraped_100.json --output data/processed/data_preprocessed.json
+      pip install -r services/preprocessor/requirements.txt
+      python services/preprocessor/main.py --input_dir data/raw --output_dir data/processed
     deps:
       - services/preprocessor/main.py
       - services/preprocessor/preprocessing.py
       - services/preprocessor/requirements.txt
-      - data/raw/mit_scraped_1000.json
-      - data/raw/mit_scraped_0.json
+      - data/raw/
     outs:
-      - data/processed/data_preprocessed.json
+      - data/processed/
 
   train:
     cmd: |
-      pip install -r services/trainer/requirements.txt 
+      pip install -r services/trainer/requirements.txt
       python services/trainer/main.py
     deps:
       - services/trainer/main.py
       - services/trainer/bert.py
       - services/trainer/requirements.txt
-      - data/processed/data_preprocessed.json
-      - data/raw/mit_scraped_0.json
+      - data/processed/
     outs:
-      - runs/topic_model
+      - runs/
