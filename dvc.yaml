@@ -22,6 +22,7 @@ stages:
       - services/preprocessor/preprocessing.py
       - services/preprocessor/requirements.txt
       - data/raw/mit_scraped_100.json
+      - data/raw/mit_scraped_0.json
     outs:
       - data/processed/data_preprocessed.json
 
@@ -34,5 +35,6 @@ stages:
       - services/trainer/bert.py
       - services/trainer/requirements.txt
       - data/processed/data_preprocessed.json
+      - data/raw/mit_scraped_0.json
     outs:
       - runs/topic_model
