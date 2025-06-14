@@ -20,7 +20,7 @@ class PreprocessRequest(BaseModel):
 @app.post("/scrape")
 def trigger_scrape(req: ScrapeRequest):
     try:
-        resp = requests.post(SCRAPER_URL, json=req.model_dump(), timeout=600)
+        resp = requests.post(SCRAPER_URL, json=req.model_dump(), timeout=600000)
         return resp.json()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to trigger scraping: {e}")

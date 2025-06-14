@@ -1,0 +1,72 @@
+schema: '2.0'
+stages:
+  scrape:
+    cmd: "pip install -r services/scraper/requirements.txt &&\nplaywright install
+      --with-deps chromium &&\npython services/scraper/main.py --title_per_page 10
+      --max_pages 100\n"
+    deps:
+    - path: services/scraper/main.py
+      hash: md5
+      md5: 9582585d0e662e9801e5a0cc4d7125ab
+      size: 1228
+    - path: services/scraper/requirements.txt
+      hash: md5
+      md5: 019f5f0d4c336c733c2a6d5026fb127a
+      size: 35
+    - path: services/scraper/scraping.py
+      hash: md5
+      md5: a6dc81cfbbaddc027c56f67f648a79ab
+      size: 8579
+    outs:
+    - path: data/raw/mit_scraped_1000.json
+      hash: md5
+      md5: 66b2d37b4a2d06371b364ce29f10a645
+      size: 189281
+  preprocess:
+    cmd: "pip install -r services/preprocessor/requirements.txt &&\npython services/preprocessor/main.py\n"
+    deps:
+    - path: data/raw/mit_scraped_1000.json
+      hash: md5
+      md5: 66b2d37b4a2d06371b364ce29f10a645
+      size: 189281
+    - path: services/preprocessor/main.py
+      hash: md5
+      md5: 1b574c1c00699b26bf69af344cc0ada2
+      size: 1604
+    - path: services/preprocessor/preprocessing.py
+      hash: md5
+      md5: 08a103ffe78a4cec7250e28bf06c577c
+      size: 4726
+    - path: services/preprocessor/requirements.txt
+      hash: md5
+      md5: d4504d76299ea9bca20d60aac79e60ea
+      size: 46
+    outs:
+    - path: data/processed/data_preprocessed.json
+      hash: md5
+      md5: 3379f99eb61b751881cd6aed2d7345f9
+      size: 141340
+  train:
+    cmd: "pip install -r services/trainer/requirements.txt &&\npython services/trainer/main.py\n"
+    deps:
+    - path: data/processed/data_preprocessed.json
+      hash: md5
+      md5: 3379f99eb61b751881cd6aed2d7345f9
+      size: 141340
+    - path: services/trainer/bert.py
+      hash: md5
+      md5: fd1a4ef4d576ee85230e4cdf9c74b987
+      size: 5749
+    - path: services/trainer/main.py
+      hash: md5
+      md5: 0651e7b2fba2549b2bbcb80844a5c8a9
+      size: 3735
+    - path: services/trainer/requirements.txt
+      hash: md5
+      md5: 4e0989369c6125d47e8b5c8a37220ae3
+      size: 79
+    outs:
+    - path: runs/topic_model
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
