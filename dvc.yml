@@ -3,9 +3,9 @@ stages:
     cmd: |
       pip install -r services/scraper/requirements.txt &&
       playwright install --with-deps chromium &&
-      python services/scraper/cli.py --title_per_page 10 --max_pages 100
+      python services/scraper/main.py --title_per_page 10 --max_pages 100
     deps:
-      - services/scraper/cli.py
+      - services/scraper/main.py
       - services/scraper/scraping.py
       - services/scraper/requirements.txt
     outs:
@@ -14,9 +14,9 @@ stages:
   preprocess:
     cmd: |
       pip install -r services/preprocessor/requirements.txt &&
-      python services/preprocessor/cli.py
+      python services/preprocessor/main.py
     deps:
-      - services/preprocessor/cli.py
+      - services/preprocessor/main.py
       - services/preprocessor/preprocessing.py
       - services/preprocessor/requirements.txt
       - data/raw/mit_scraped_1000.json
@@ -27,12 +27,12 @@ stages:
   train:
     cmd: |
       pip install -r services/trainer/requirements.txt &&
-      python services/trainer/cli.py
+      python services/trainer/main.py
     deps:
-      - services/trainer/cli.py
+      - services/trainer/main.py
       - services/trainer/bert.py
       - services/trainer/requirements.txt
       - data/processed/data_preprocessed.json
       - data/processed/embeddings.npy
     outs:
-      - models/topic_model.pkl
+      - runs/topic_model
