@@ -4,14 +4,14 @@ stages:
       pip install -r services/scraper/requirements.txt 
       playwright install --with-deps chromium
       echo $(date) > data/raw/mit_scraped_0.json
-      python services/scraper/main.py --title_per_page 10 --max_pages 10
+      python services/scraper/main.py --title_per_page 20 --max_pages 50
     deps:
       - services/scraper/main.py
       - services/scraper/scraping.py
       - services/scraper/requirements.txt
       - data/raw/mit_scraped_0.json
     outs:
-      - data/raw/mit_scraped_100.json
+      - data/raw/mit_scraped_1000.json
 
   preprocess:
     cmd: |
@@ -21,7 +21,7 @@ stages:
       - services/preprocessor/main.py
       - services/preprocessor/preprocessing.py
       - services/preprocessor/requirements.txt
-      - data/raw/mit_scraped_100.json
+      - data/raw/mit_scraped_1000.json
       - data/raw/mit_scraped_0.json
     outs:
       - data/processed/data_preprocessed.json
