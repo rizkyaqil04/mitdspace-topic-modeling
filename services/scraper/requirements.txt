@@ -2,3 +2,5 @@ fastapi
 uvicorn
 crawl4ai
 playwright
+pyOpenSSL<24.2.1
+cryptography<43
