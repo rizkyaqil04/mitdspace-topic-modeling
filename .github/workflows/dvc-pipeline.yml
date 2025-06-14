@@ -25,6 +25,7 @@ jobs:
         run: |
           pip install "pyOpenSSL<24.2.1" "cryptography<43"
           pip install dvc[gdrive]
+          pip list | grep SSL
 
       - name: Write GDrive credentials to file
         run: |
@@ -39,10 +40,14 @@ jobs:
           dvc pull
 
       - name: Run DVC pipeline
-        run: | 
-          dvc repro
-          dvc commit
-          dvc push
+        run: dvc repro
+
+      - name: Commit DVC changes
+        run: dvc commit
+
+      - name: Push DVC data to remote
+        run: dvc push
+
 
       
         
