@@ -3,6 +3,7 @@ import sys
 import json
 import random
 import logging
+import shutil
 import numpy as np
 from pathlib import Path
 from datetime import datetime
@@ -33,10 +34,21 @@ num_topics_metric = Gauge(
 # Paths (relatif terhadap /app)
 PAPERS_DATA_PATH = BASE_PATH.parent / "data" / "processed" / "data_preprocessed.json"
 MODEL_LOCAL_PATH = str(BASE_PATH.parent / "runs" / "local_models" / "all-MiniLM-L6-v2")
+SYMLINK_PATH = BASE_PATH.parent / "runs" / "topic_model"
 RUN_DIR = BASE_PATH.parent / "runs" / run_id
 MODEL_PATH = RUN_DIR / "bertopic_model"
 EMBEDDING_PATH = RUN_DIR / "embeddings.npy"
 TOPICS_PATH = RUN_DIR / "topics.json"
+
+# Hapus jika sudah ada
+if SYMLINK_PATH.exists() or SYMLINK_PATH.is_symlink():
+    if SYMLINK_PATH.is_symlink() or SYMLINK_PATH.is_file():
+        SYMLINK_PATH.unlink()
+    else:
+        shutil.rmtree(SYMLINK_PATH)
+
+# Buat symlink ke model dinamis
+os.symlink(MODEL_PATH.resolve(), SYMLINK_PATH)
 
 # Ensure directories exist
 for p in [PAPERS_DATA_PATH.parent, Path(MODEL_LOCAL_PATH).parent, Path(RUN_DIR), Path(MODEL_PATH).parent, TOPICS_PATH.parent]:
