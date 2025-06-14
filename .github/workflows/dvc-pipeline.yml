@@ -32,7 +32,7 @@ jobs:
           echo "${{ secrets.GDRIVE_SA_JSON }}" | base64 --decode > secrets/gdrive-sa.json
 
       - name: Pull data & model from GDrive
-        run: dvc pull
+        run: dvc repro
 
       - name: Run DVC pipeline
         run: dvc repro
