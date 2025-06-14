@@ -26,12 +26,16 @@ def test_preprocessing_minimal_data(tmp_path):
     assert out_path.exists()
 
 def test_topic_modeling_runs():
-    # Dummy papers yang sudah melalui proses preprocess
     papers = [
-        {"title": "deep learning nlp", "authors": ["john doe", "jane smith"]},
-        {"title": "quantum computing basics", "authors": ["alice bob"]}
+        {"title": "deep learning for nlp", "authors": ["john doe"]},
+        {"title": "transformers in computer vision", "authors": ["jane smith"]},
+        {"title": "advances in reinforcement learning", "authors": ["alice"]},
+        {"title": "quantum computing basics", "authors": ["bob"]},
+        {"title": "graph neural networks overview", "authors": ["charlie"]},
+        {"title": "large language models and reasoning", "authors": ["dave"]}
     ]
     model, topics = compute_topics_with_bertopic(papers)
     assert hasattr(model, "get_topic")
     assert isinstance(topics, list)
     assert len(topics) == len(papers)
+
