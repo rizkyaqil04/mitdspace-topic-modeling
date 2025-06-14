@@ -9,7 +9,7 @@ stages:
       - services/scraper/scraping.py
       - services/scraper/requirements.txt
     outs:
-      - data/raw/mit_scraped_1000.json
+      - data/raw/mit_scraped_100.json
 
   preprocess:
     cmd: |
@@ -19,7 +19,7 @@ stages:
       - services/preprocessor/main.py
       - services/preprocessor/preprocessing.py
       - services/preprocessor/requirements.txt
-      - data/raw/mit_scraped_1000.json
+      - data/raw/mit_scraped_100.json
     outs:
       - data/processed/data_preprocessed.json
 
