@@ -7,8 +7,8 @@ stages:
     deps:
     - path: data/raw/mit_scraped_0.json
       hash: md5
-      md5: eaa28b991f762f8632eb8bcc3ac9b668
-      size: 24
+      md5: 66b2d37b4a2d06371b364ce29f10a645
+      size: 189281
     - path: services/scraper/main.py
       hash: md5
       md5: 9582585d0e662e9801e5a0cc4d7125ab
