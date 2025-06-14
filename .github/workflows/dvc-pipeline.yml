@@ -36,7 +36,7 @@ jobs:
           mkdir data
           mkdir data/raw
           touch data/raw/mit_scraped_0.json
-          dvc pull
+          # dvc pull
           
       - name: Install dependencies
         run: |
