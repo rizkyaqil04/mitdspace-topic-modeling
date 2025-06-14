@@ -35,4 +35,5 @@ jobs:
         run: dvc repro
 
       - name: Run DVC pipeline
-        run: dvc repro
+        run: dvc push
+        
