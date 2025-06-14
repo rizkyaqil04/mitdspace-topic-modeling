@@ -1,10 +1,14 @@
 schema: '2.0'
 stages:
   scrape:
-    cmd: "pip install -r services/scraper/requirements.txt &&\nplaywright install
-      --with-deps chromium &&\npython services/scraper/main.py --title_per_page 10
-      --max_pages 100\n"
+    cmd: "pip install -r services/scraper/requirements.txt \nplaywright install --with-deps
+      chromium\necho $(date) > data/raw/mit_scraped_0.json\npython services/scraper/main.py
+      --title_per_page 10 --max_pages 10\n"
     deps:
+    - path: data/raw/mit_scraped_0.json
+      hash: md5
+      md5: eaa28b991f762f8632eb8bcc3ac9b668
+      size: 24
     - path: services/scraper/main.py
       hash: md5
       md5: 9582585d0e662e9801e5a0cc4d7125ab
@@ -18,14 +22,15 @@ stages:
       md5: a6dc81cfbbaddc027c56f67f648a79ab
       size: 8579
     outs:
-    - path: data/raw/mit_scraped_1000.json
+    - path: data/raw/mit_scraped_100.json
       hash: md5
       md5: 66b2d37b4a2d06371b364ce29f10a645
       size: 189281
   preprocess:
-    cmd: "pip install -r services/preprocessor/requirements.txt &&\npython services/preprocessor/main.py\n"
+    cmd: "pip install -r services/preprocessor/requirements.txt \npython services/preprocessor/main.py
+      --input data/raw/mit_scraped_100.json --output data/processed/data_preprocessed.json\n"
     deps:
-    - path: data/raw/mit_scraped_1000.json
+    - path: data/raw/mit_scraped_100.json
       hash: md5
       md5: 66b2d37b4a2d06371b364ce29f10a645
       size: 189281
@@ -47,7 +52,7 @@ stages:
       md5: 3379f99eb61b751881cd6aed2d7345f9
       size: 141340
   train:
-    cmd: "pip install -r services/trainer/requirements.txt &&\npython services/trainer/main.py\n"
+    cmd: "pip install -r services/trainer/requirements.txt \npython services/trainer/main.py\n"
     deps:
     - path: data/processed/data_preprocessed.json
       hash: md5
