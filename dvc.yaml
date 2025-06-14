@@ -37,4 +37,4 @@ stages:
       - data/processed/data_preprocessed.json
       - data/raw/mit_scraped_0.json
     outs:
-      - runs/topic_model
+      - runs/
