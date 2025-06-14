@@ -22,7 +22,6 @@ stages:
       - data/raw/mit_scraped_1000.json
     outs:
       - data/processed/data_preprocessed.json
-      - data/processed/embeddings.npy
 
   train:
     cmd: |
@@ -33,6 +32,5 @@ stages:
       - services/trainer/bert.py
       - services/trainer/requirements.txt
       - data/processed/data_preprocessed.json
-      - data/processed/embeddings.npy
     outs:
       - runs/topic_model
