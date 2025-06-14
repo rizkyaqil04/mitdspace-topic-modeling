@@ -1,17 +1,16 @@
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.responses import Response
 from pydantic import BaseModel
-from bert import compute_topics_with_bertopic, compute_coherence_score, PAPERS_DATA_PATH
+from bert import compute_topics_with_bertopic, compute_coherence_score, PAPERS_DATA_PATH, run_id
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST, REGISTRY
-import json
-import logging
+import json, argparse
 from pathlib import Path
 
 app = FastAPI()
 
 # Pastikan path absolut di dalam container
 BASE_PATH = Path(__file__).parent.resolve()
-RESULT_PATH = BASE_PATH.parent / "results" / "train_result.json"
+RESULT_PATH = BASE_PATH.parent / "runs" / run_id / "train_result.json"
 
 class TrainResponse(BaseModel):
     message: str
@@ -33,7 +32,6 @@ def train_job():
         }, indent=2))
 
         if not PAPERS_DATA_PATH.exists():
-            logging.error(f"File '{PAPERS_DATA_PATH}' not found.")
             result = {
                 "status": "error",
                 "message": f"File '{PAPERS_DATA_PATH}' not found.",
@@ -52,10 +50,8 @@ def train_job():
                 "num_topics": num_topics,
                 "coherence_score": coherence
             }
-            logging.info(result["message"])
         RESULT_PATH.write_text(json.dumps(result, indent=2))
     except Exception as e:
-        logging.error(f"Error in train_job: {e}")
         RESULT_PATH.write_text(json.dumps({
             "status": "error",
             "message": str(e),
@@ -89,6 +85,18 @@ def prometheus_metrics():
     data = generate_latest(REGISTRY)
     return Response(content=data, media_type=CONTENT_TYPE_LATEST)
 
+def main():
+    parser = argparse.ArgumentParser(description="Train topic model using BERTopic")
+    _ = parser.parse_args()
+
+    if not PAPERS_DATA_PATH.exists():
+        print(f"❌ File '{PAPERS_DATA_PATH}' tidak ditemukan.")
+        return
+
+    papers = json.loads(PAPERS_DATA_PATH.read_text(encoding="utf-8"))
+    tokenized_titles = [paper["title"].split() for paper in papers]
+    topic_model, _ = compute_topics_with_bertopic(papers)
+    compute_coherence_score(topic_model, tokenized_titles)
+
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8003)
+    main()

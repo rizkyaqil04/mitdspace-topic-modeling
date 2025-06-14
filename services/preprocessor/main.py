@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from pathlib import Path
-import json
+import json, argparse
 from preprocessing import preprocess_papers
 import logging
 
@@ -38,6 +38,17 @@ def preprocess_endpoint(req: PreprocessRequest):
         logging.error(f"Error in preprocess_endpoint: {e}")
         return {"message": str(e), "num_records": 0}
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", type=str, required=True)
+    parser.add_argument("--output", type=str, required=True)
+    args = parser.parse_args()
+
+    input_path = Path(args.input)
+    with input_path.open(encoding="utf-8") as f:
+        papers = json.load(f)
+
+    preprocess_papers(papers, output_path=args.output)
+
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8002)
+    main()

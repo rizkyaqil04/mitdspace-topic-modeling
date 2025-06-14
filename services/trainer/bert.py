@@ -135,6 +135,7 @@ def compute_coherence_score(topic_model, tokenized_texts, top_n=3):
     )
     score = coherence_model.get_coherence()
     coherence_score_metric.set(score)
+    logging.info(f"{len(topic_words)} topics found")
     logging.info(f"Coherence Score (c_v): {score:.4f}")
 
     # MLflow logging (optional)

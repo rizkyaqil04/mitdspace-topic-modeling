@@ -21,8 +21,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./data:/app/data
-      - ./results:/app/results
-      - ./models:/app/models
+      - ./runs:/app/runs
     networks: [my-network]
     environment:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
@@ -35,7 +34,7 @@ services:
       - "8000:8000"
     volumes:
       - ./data:/app/data
-      - ./results:/app/results
+      - ./runs:/app/runs
     networks: [my-network]
     depends_on: [scraper, preprocessor, trainer]
 

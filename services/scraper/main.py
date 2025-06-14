@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import asyncio
+import asyncio, argparse
 from scraping import scraping_data
 
 app = FastAPI()
@@ -24,6 +24,16 @@ async def scrape_endpoint(req: ScrapeRequest):
     except Exception as e:
         return {"message": str(e), "num_records": 0}
 
+def main():
+    parser = argparse.ArgumentParser(description="Scrape data from DSpace MIT")
+    parser.add_argument("--title_per_page", type=int, default=100, help="Number of titles per page")
+    parser.add_argument("--max_pages", type=int, default=1, help="Maximum number of pages to scrape")
+    args = parser.parse_args()
+
+    try:
+        asyncio.run(scraping_data(args.title_per_page, args.max_pages))
+    except Exception as e:
+        print(f"❌ Error during scraping: {e}")
+        
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    main()

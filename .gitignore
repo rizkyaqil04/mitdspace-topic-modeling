@@ -16,4 +16,4 @@ data/raw/
 data/processed/
 /data
 test/
-/models
+/runs
