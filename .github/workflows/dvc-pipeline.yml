@@ -37,6 +37,11 @@ jobs:
           mkdir data/raw
           touch data/raw/mit_scraped_0.json
           dvc pull
+          
+      - name: Install dependencies
+        run: |
+          pip install "pyOpenSSL<24.2.1" "cryptography<43"
+          pip install dvc[gdrive]
 
       - name: Run DVC pipeline
         run: dvc repro
@@ -45,10 +50,7 @@ jobs:
         run: dvc commit
 
       - name: Push DVC data to remote
-        run: | 
-          pip install "pyOpenSSL<24.2.1" "cryptography<43"
-          pip install dvc[gdrive] dvc
-          dvc push
+        run: dvc push
 
 
       
