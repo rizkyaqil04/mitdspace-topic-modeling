@@ -25,9 +25,12 @@ def test_preprocessing_minimal_data(tmp_path):
     assert len(cleaned) == 2
     assert out_path.exists()
 
-def test_topic_modeling_runs(tmp_path):
-    json_path = Path("data/processed/data_preprocessed.json")
-    papers = json.loads(json_path.read_text(encoding="utf-8"))
+def test_topic_modeling_runs():
+    # Dummy papers yang sudah melalui proses preprocess
+    papers = [
+        {"title": "deep learning nlp", "authors": ["john doe", "jane smith"]},
+        {"title": "quantum computing basics", "authors": ["alice bob"]}
+    ]
     model, topics = compute_topics_with_bertopic(papers)
     assert hasattr(model, "get_topic")
     assert isinstance(topics, list)
