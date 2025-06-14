@@ -14,7 +14,7 @@ stages:
   preprocess:
     cmd: |
       pip install -r services/preprocessor/requirements.txt 
-      python services/preprocessor/main.py --input data/raw/mit_scraped_1000.json --output data/processed/data_preprocessed.json
+      python services/preprocessor/main.py --input data/raw/mit_scraped_100.json --output data/processed/data_preprocessed.json
     deps:
       - services/preprocessor/main.py
       - services/preprocessor/preprocessing.py
