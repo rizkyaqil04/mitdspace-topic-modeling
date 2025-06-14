@@ -47,9 +47,6 @@ if SYMLINK_PATH.exists() or SYMLINK_PATH.is_symlink():
     else:
         shutil.rmtree(SYMLINK_PATH)
 
-# Buat symlink ke model dinamis
-os.symlink(MODEL_PATH.resolve(), SYMLINK_PATH)
-
 # Ensure directories exist
 for p in [PAPERS_DATA_PATH.parent, Path(MODEL_LOCAL_PATH).parent, Path(RUN_DIR), Path(MODEL_PATH).parent, TOPICS_PATH.parent]:
     os.makedirs(p, exist_ok=True)
@@ -109,6 +106,7 @@ def compute_topics_with_bertopic(papers, save_model=True):
     if save_model:
         topic_model.save(MODEL_PATH)
         logging.info(f"Model saved at {MODEL_PATH}")
+        create_symlink_to_model()
 
     # Save topics info
     topic_info = topic_model.get_topic_info()
@@ -158,3 +156,15 @@ def compute_coherence_score(topic_model, tokenized_texts, top_n=3):
         logging.warning(f"MLflow logging skipped: {e}")
 
     return score
+
+def create_symlink_to_model():
+    try:
+        if MODEL_PATH.exists():
+            if SYMLINK_PATH.exists() or SYMLINK_PATH.is_symlink():
+                os.remove(SYMLINK_PATH)
+            os.symlink(MODEL_PATH.resolve(), SYMLINK_PATH)
+            logging.info(f"Symlink created: {SYMLINK_PATH} -> {MODEL_PATH}")
+        else:
+            logging.warning(f"Model path does not exist yet: {MODEL_PATH}")
+    except Exception as e:
+        logging.warning(f"Failed to create symlink: {e}")
