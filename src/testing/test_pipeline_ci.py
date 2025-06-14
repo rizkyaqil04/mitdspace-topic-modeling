@@ -29,13 +29,16 @@ def test_topic_modeling_runs():
     papers = [
         {"title": "deep learning for nlp", "authors": ["john doe"]},
         {"title": "transformers in computer vision", "authors": ["jane smith"]},
-        {"title": "advances in reinforcement learning", "authors": ["alice"]},
-        {"title": "quantum computing basics", "authors": ["bob"]},
-        {"title": "graph neural networks overview", "authors": ["charlie"]},
-        {"title": "large language models and reasoning", "authors": ["dave"]}
+        {"title": "reinforcement learning applications", "authors": ["alice johnson"]},
+        {"title": "quantum computing basics", "authors": ["bob lee"]},
+        {"title": "graph neural networks", "authors": ["charlie kim"]},
+        {"title": "large language models", "authors": ["dave park"]},
+        {"title": "text summarization techniques", "authors": ["emily clark"]},
+        {"title": "zero shot learning", "authors": ["frank martin"]},
+        {"title": "semi supervised learning", "authors": ["grace hall"]},
+        {"title": "explainable ai methods", "authors": ["henry young"]}
     ]
     model, topics = compute_topics_with_bertopic(papers)
     assert hasattr(model, "get_topic")
     assert isinstance(topics, list)
     assert len(topics) == len(papers)
-
