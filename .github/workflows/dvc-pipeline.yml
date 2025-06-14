@@ -33,6 +33,8 @@ jobs:
 
       - name: Pull data & model from GDrive
         run: |
+          mkdir data
+          mkdir data/raw
           touch data/raw/mit_scraped_0.json
           dvc pull
 
