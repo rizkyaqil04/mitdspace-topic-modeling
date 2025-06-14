@@ -1,8 +1,8 @@
 stages:
   scrape:
     cmd: |
-      pip install -r services/scraper/requirements.txt &&
-      playwright install --with-deps chromium &&
+      pip install -r services/scraper/requirements.txt 
+      playwright install --with-deps chromium 
       python services/scraper/main.py --title_per_page 10 --max_pages 100
     deps:
       - services/scraper/main.py
@@ -13,7 +13,7 @@ stages:
 
   preprocess:
     cmd: |
-      pip install -r services/preprocessor/requirements.txt &&
+      pip install -r services/preprocessor/requirements.txt 
       python services/preprocessor/main.py
     deps:
       - services/preprocessor/main.py
@@ -26,7 +26,7 @@ stages:
 
   train:
     cmd: |
-      pip install -r services/trainer/requirements.txt &&
+      pip install -r services/trainer/requirements.txt 
       python services/trainer/main.py
     deps:
       - services/trainer/main.py
