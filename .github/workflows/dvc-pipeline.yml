@@ -1,0 +1,38 @@
+name: Monthly DVC Pipeline
+
+on:
+  # schedule:
+  #   - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
+  # workflow_dispatch:
+  push:
+    branches: [Aqill's]
+  pull_request:
+
+jobs:
+  dvc-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          pip install dvc[gdrive]
+          pip install -r requirements.txt
+
+      - name: Write GDrive credentials to file
+        run: |
+          mkdir -p secrets
+          echo "${{ secrets.GDRIVE_SA_JSON }}" > secrets/gdrive-sa.json
+
+      - name: Pull data & model from GDrive
+        run: dvc pull
+
+      - name: Run DVC pipeline
+        run: dvc repro
