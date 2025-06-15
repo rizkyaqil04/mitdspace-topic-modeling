@@ -9,7 +9,6 @@ stages:
       - services/scraper/main.py
       - services/scraper/scraping.py
       - services/scraper/requirements.txt
-      - data/raw/mit_scraped_0.json
     outs:
       - data/raw/
 
