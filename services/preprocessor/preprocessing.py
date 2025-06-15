@@ -12,7 +12,7 @@ BASE_PATH = Path("app")
 # Paths for storing preprocessing results (relatif terhadap /app)
 SCRAPED_DATA_PATH = BASE_PATH.parent / "data" / "raw" / "mit_scraped_1000.json"
 PREPROCESSED_DATA_PATH = BASE_PATH.parent / "data" / "processed" / "data_preprocessed.json"
-MODEL_LOCAL_PATH = str(BASE_PATH.parent / "models" / "all-MiniLM-L6-v2")
+MODEL_LOCAL_PATH = str(BASE_PATH.parent / "runs" / "local_models" / "all-MiniLM-L6-v2")
 EMBEDDING_PATH = BASE_PATH.parent / "data" / "processed" / "embeddings.npy"
 TFIDF_FEATURES_PATH = BASE_PATH.parent / "data" / "processed" / "tfidf_features.json"
 
