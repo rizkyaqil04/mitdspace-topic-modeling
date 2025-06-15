@@ -43,6 +43,11 @@ jobs:
       - name: Run DVC pipeline
         run: dvc repro
 
+      - name: Install dependencies and DVC
+        run: |
+          pip install "pyOpenSSL<24.2.1" "cryptography<43"
+          pip install dvc[gdrive]
+          
       - name: Commit DVC metadata
         run: |
           dvc commit
