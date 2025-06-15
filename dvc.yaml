@@ -3,7 +3,6 @@ stages:
     cmd: |
       pip install -r services/scraper/requirements.txt 
       playwright install --with-deps chromium
-      echo $(date) > data/raw/mit_scraped_0.json
       python services/scraper/main.py --title_per_page 10 --max_pages 10
     deps:
       - services/scraper/main.py
