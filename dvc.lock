@@ -2,38 +2,35 @@ schema: '2.0'
 stages:
   scrape:
     cmd: "pip install -r services/scraper/requirements.txt \nplaywright install --with-deps
-      chromium\necho $(date) > data/raw/mit_scraped_0.json\npython services/scraper/main.py
-      --title_per_page 10 --max_pages 10\n"
+      chromium\npython services/scraper/main.py --title_per_page 10 --max_pages 10\n"
     deps:
-    - path: data/raw/mit_scraped_0.json
-      hash: md5
-      md5: 66b2d37b4a2d06371b364ce29f10a645
-      size: 189281
     - path: services/scraper/main.py
       hash: md5
       md5: 9582585d0e662e9801e5a0cc4d7125ab
       size: 1228
     - path: services/scraper/requirements.txt
       hash: md5
-      md5: 019f5f0d4c336c733c2a6d5026fb127a
-      size: 35
+      md5: 53c33857d70d71508784de4232a144d7
+      size: 36
     - path: services/scraper/scraping.py
       hash: md5
       md5: a6dc81cfbbaddc027c56f67f648a79ab
       size: 8579
     outs:
-    - path: data/raw/mit_scraped_100.json
+    - path: data/raw/
       hash: md5
-      md5: 66b2d37b4a2d06371b364ce29f10a645
+      md5: d12b14fae80656bec60751cdd73fecdf.dir
       size: 189281
+      nfiles: 1
   preprocess:
     cmd: "pip install -r services/preprocessor/requirements.txt \npython services/preprocessor/main.py
       --input data/raw/mit_scraped_100.json --output data/processed/data_preprocessed.json\n"
     deps:
-    - path: data/raw/mit_scraped_100.json
+    - path: data/raw/
       hash: md5
-      md5: 66b2d37b4a2d06371b364ce29f10a645
+      md5: d12b14fae80656bec60751cdd73fecdf.dir
       size: 189281
+      nfiles: 1
     - path: services/preprocessor/main.py
       hash: md5
       md5: 1b574c1c00699b26bf69af344cc0ada2
@@ -47,17 +44,19 @@ stages:
       md5: d4504d76299ea9bca20d60aac79e60ea
       size: 46
     outs:
-    - path: data/processed/data_preprocessed.json
+    - path: data/processed/
       hash: md5
-      md5: 3379f99eb61b751881cd6aed2d7345f9
+      md5: b404341e3a77bab48b7f28f76ea03377.dir
       size: 141340
+      nfiles: 1
   train:
     cmd: "pip install -r services/trainer/requirements.txt \npython services/trainer/main.py\n"
     deps:
-    - path: data/processed/data_preprocessed.json
+    - path: data/processed/
       hash: md5
-      md5: 3379f99eb61b751881cd6aed2d7345f9
+      md5: b404341e3a77bab48b7f28f76ea03377.dir
       size: 141340
+      nfiles: 1
     - path: services/trainer/bert.py
       hash: md5
       md5: fd1a4ef4d576ee85230e4cdf9c74b987
@@ -71,7 +70,8 @@ stages:
       md5: 4e0989369c6125d47e8b5c8a37220ae3
       size: 79
     outs:
-    - path: runs/topic_model
+    - path: runs/
       hash: md5
-      md5: d41d8cd98f00b204e9800998ecf8427e
-      size: 0
+      md5: ebfae897a98594d12ccdf8af43114182.dir
+      size: 275238642
+      nfiles: 15
