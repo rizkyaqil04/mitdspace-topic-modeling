@@ -5,7 +5,7 @@ on:
   #   - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
   # workflow_dispatch:
   push:
-    branches: [Aqills]
+    branches: ["Aqill's"]
   pull_request:
 
 jobs:
