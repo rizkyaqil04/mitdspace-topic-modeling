@@ -1,12 +1,9 @@
 name: Monthly DVC Pipeline
 
 on:
-  # schedule:
-  #   - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
-  # workflow_dispatch:
-  push:
-    branches: ["Aqill's"]
-  pull_request:
+  schedule:
+    - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
+  workflow_dispatch:
 
 jobs:
   dvc-run:
