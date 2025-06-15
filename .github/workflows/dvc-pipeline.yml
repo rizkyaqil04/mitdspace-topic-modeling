@@ -35,6 +35,7 @@ jobs:
         run: |
           mkdir -p data/raw
           touch data/raw/mit_scraped_0.json
+          echo $(date) > data/raw/mit_scraped_0.json
 
       - name: Pull latest data from DVC remote
         run: dvc pull || echo "Skipping pull errors (possibly first run)"
