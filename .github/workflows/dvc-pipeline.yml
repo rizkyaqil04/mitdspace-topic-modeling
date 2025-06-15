@@ -5,7 +5,7 @@ on:
   #   - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
   # workflow_dispatch:
   push:
-    branches: [Aqill's]
+    branches: [Aqills]
   pull_request:
 
 jobs:
@@ -21,37 +21,35 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install dependencies
+      - name: Install dependencies and DVC
         run: |
           pip install "pyOpenSSL<24.2.1" "cryptography<43"
           pip install dvc[gdrive]
 
-      - name: Write GDrive credentials to file
+      - name: Set up GDrive credentials
         run: |
           mkdir -p secrets
           echo "${{ secrets.GDRIVE_SA_JSON }}" | base64 --decode > secrets/gdrive-sa.json
 
-      - name: Pull data & model from GDrive
+      - name: Prepare workspace
         run: |
-          mkdir data
-          mkdir data/raw
+          mkdir -p data/raw
           touch data/raw/mit_scraped_0.json
-          # dvc pull
+
+      - name: Pull latest data from DVC remote
+        run: dvc pull || echo "Skipping pull errors (possibly first run)"
 
       - name: Run DVC pipeline
         run: dvc repro
 
-      - name: Install dependencies
+      - name: Commit DVC metadata
         run: |
-          pip install "pyOpenSSL<24.2.1" "cryptography<43"
-          pip install dvc[gdrive]
+          dvc commit
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update DVC pipeline outputs [auto]" || echo "Nothing to commit"
+          git push origin "Aqill's"
 
-      - name: Commit DVC changes
-        run: dvc commit
-
-      - name: Push DVC data to remote
+      - name: Push DVC outputs to remote
         run: dvc push
-
-
-      
-        
