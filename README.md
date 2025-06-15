@@ -91,13 +91,26 @@ docker compose up --build -d
 
 ## 📊 Monitoring Stack
 
-Prometheus and Grafana are deployed as independent services to monitor training metrics such as coherence score and duration. These services can also be extended to observe scraping and preprocessing activities.
+Prometheus and Grafana are deployed as separate services to monitor training metrics such as *coherence score* and *duration*. This stack can also be extended to observe scraping and preprocessing activities.
 
-* **Prometheus** scrapes metrics from the `trainer` and other exporters.
-* **Grafana** provides dashboards for real-time visualization of metrics.
+- **Prometheus** scrapes metrics from the `trainer` and other exporters.
+- **Grafana** provides real-time dashboards for metric visualization.
 
-Access Grafana UI at: [http://localhost:3000](http://localhost:3000)
+Access the Grafana UI at: [http://localhost:3000](http://localhost:3000)  
 Default login: `admin` / `admin`
+
+### 🔌 Connecting Grafana to Prometheus
+
+To start visualizing data, add Prometheus as a data source in Grafana:
+
+1. Open [http://localhost:3000](http://localhost:3000) and log in.
+2. Navigate to **Gear (⚙️) → Data Sources**.
+3. Click **Add data source** and select **Prometheus**.
+4. In the **URL** field, enter: `http://prometheus:9090`
+5. Click **Save & test** to save and verify the connection.
+
+Once connected, you can begin creating dashboards or importing existing ones to monitor system metrics.
+
 
 ---
 
