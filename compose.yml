@@ -1,4 +1,5 @@
 services:
+<<<<<<< HEAD
   web:
     build:
       context: .
@@ -15,3 +16,77 @@ services:
 networks:
   my-network:
     external: true
+=======
+  scraper:
+    build:
+      context: ./services/scraper
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+    networks: [my-network]
+
+  preprocessor:
+    build:
+      context: ./services/preprocessor
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+    networks: [my-network]
+
+  trainer:
+    build:
+      context: ./services/trainer
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+      - ./runs:/app/runs
+    networks: [my-network]
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+
+  web:
+    build:
+      context: ./services/web
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./runs:/app/runs
+    networks: [my-network]
+    depends_on: [scraper, preprocessor, trainer]
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./services/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks: [my-network]
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks: [my-network]
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.12.1
+    environment:
+      - MLFLOW_TRACKING_URI=http://0.0.0.0:5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+    networks: [my-network]
+    command: >
+      mlflow server
+      --backend-store-uri /mlflow/mlruns
+      --default-artifact-root /mlflow/mlruns
+      --host 0.0.0.0
+      --port 5000
+
+networks:
+  my-network:
+    driver: bridge
+>>>>>>> Aqill's

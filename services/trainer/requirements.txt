@@ -2,8 +2,6 @@ dvc
 dvc[gdrive]
 fastapi
 uvicorn
-crawl4ai
-playwright
 bertopic
 sentence_transformers
 gensim

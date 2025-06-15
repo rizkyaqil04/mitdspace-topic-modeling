@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 *.npy
 *.json
+.pytest_cache
 models/
 logs/
 results/
@@ -11,7 +12,8 @@ tfidf_features.json
 mlruns/
 secrets/
 dvc-env/
-data/raw/
-data/processed/
-/data
+/raw
+/processed
 test/
+/runs
+data/

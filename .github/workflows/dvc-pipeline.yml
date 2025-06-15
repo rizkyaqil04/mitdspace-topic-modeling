@@ -1,0 +1,58 @@
+name: Monthly DVC Pipeline
+
+on:
+  schedule:
+    - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
+  workflow_dispatch:
+
+jobs:
+  dvc-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies and DVC
+        run: |
+          pip install "pyOpenSSL<24.2.1" "cryptography<43"
+          pip install dvc[gdrive]
+
+      - name: Set up GDrive credentials
+        run: |
+          mkdir -p secrets
+          echo "${{ secrets.GDRIVE_SA_JSON }}" | base64 --decode > secrets/gdrive-sa.json
+
+      - name: Prepare workspace
+        run: |
+          mkdir -p data/raw
+          touch data/raw/mit_scraped_0.json
+          echo $(date) > data/raw/mit_scraped_0.json
+
+      - name: Pull latest data from DVC remote
+        run: dvc pull || echo "Skipping pull errors (possibly first run)"
+
+      - name: Run DVC pipeline
+        run: dvc repro
+
+      - name: Install dependencies and DVC
+        run: |
+          pip install "pyOpenSSL<24.2.1" "cryptography<43"
+          pip install dvc[gdrive]
+          
+      - name: Commit DVC metadata
+        run: |
+          dvc commit
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update DVC pipeline outputs [auto]" || echo "Nothing to commit"
+          git push origin "Aqill's"
+
+      - name: Push DVC outputs to remote
+        run: dvc push
