@@ -2,7 +2,7 @@ name: Monthly DVC Pipeline
 
 on:
   schedule:
-    - cron: '0 3 1 * *'  # Tanggal 1 setiap bulan
+    - cron: '0 3 * * *'  # Setiap hari jam 03:00
   workflow_dispatch:
 
 jobs:
