@@ -1,22 +1,5 @@
 services:
-<<<<<<< HEAD
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: my-fastapi:dev
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-    command: ["uvicorn", "run_api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-    networks:
-      - my-network
 
-networks:
-  my-network:
-    external: true
-=======
   scraper:
     build:
       context: ./services/scraper
@@ -89,4 +72,3 @@ networks:
 networks:
   my-network:
     driver: bridge
->>>>>>> Aqill's
