@@ -69,8 +69,7 @@ docker compose up --build -d
 ├── data/
 │   ├── raw/               # Scraped raw data
 │   └── processed/         # Preprocessed & embedded data
-├── models/                # Saved topic models
-├── results/               # Training results
+├── runs/                  # Training results each training
 └── docker-compose.yml     # Service orchestration
 ```
 
