@@ -4,6 +4,8 @@ from pathlib import Path
 import json, argparse
 from preprocessing import preprocess_papers
 import logging
+from fastapi.responses import Response
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST, REGISTRY
 
 app = FastAPI()
 
@@ -37,6 +39,11 @@ def preprocess_endpoint(req: PreprocessRequest):
     except Exception as e:
         logging.error(f"Error in preprocess_endpoint: {e}")
         return {"message": str(e), "num_records": 0}
+
+@app.get("/monitoring")
+def prometheus_metrics():
+    data = generate_latest(REGISTRY)
+    return Response(content=data, media_type=CONTENT_TYPE_LATEST)
 
 def main():
     parser = argparse.ArgumentParser()

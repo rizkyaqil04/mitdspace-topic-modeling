@@ -31,7 +31,9 @@ scrape_configs:
         labels:
           app: "prometheus"
 
-  - job_name: "trainer"
+  - job_name: "scrape_service"
     metrics_path: "/monitoring"
     static_configs:
-      - targets: ["trainer:8000"]
+      - targets: ["scraper:8000","preprocessor:8000","trainer:8000"]
+        labels:
+          app: "scrape_service"
