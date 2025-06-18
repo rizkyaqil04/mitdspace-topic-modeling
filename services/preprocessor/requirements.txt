@@ -4,3 +4,4 @@ pandas
 fastapi
 uvicorn
 nltk
+prometheus_client

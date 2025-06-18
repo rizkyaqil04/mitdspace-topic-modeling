@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import asyncio, argparse
 from scraping import scraping_data
+from fastapi.responses import Response
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST, REGISTRY
 
 app = FastAPI()
 
@@ -23,6 +25,11 @@ async def scrape_endpoint(req: ScrapeRequest):
         }
     except Exception as e:
         return {"message": str(e), "num_records": 0}
+
+@app.get("/monitoring")
+def prometheus_metrics():
+    data = generate_latest(REGISTRY)
+    return Response(content=data, media_type=CONTENT_TYPE_LATEST)
 
 def main():
     parser = argparse.ArgumentParser(description="Scrape data from DSpace MIT")
