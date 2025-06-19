@@ -59,8 +59,8 @@ stages:
       nfiles: 1
     - path: services/trainer/bert.py
       hash: md5
-      md5: fd1a4ef4d576ee85230e4cdf9c74b987
-      size: 5749
+      md5: c7912c3149103036a1daf186be8adb29
+      size: 6602
     - path: services/trainer/main.py
       hash: md5
       md5: 0651e7b2fba2549b2bbcb80844a5c8a9
@@ -72,6 +72,6 @@ stages:
     outs:
     - path: runs/
       hash: md5
-      md5: b256637e7c5ba0bdd2b9769df338e2e8.dir
+      md5: 6e588381adb85feb4f8a7eb699b4c863.dir
       size: 280518335
       nfiles: 15
