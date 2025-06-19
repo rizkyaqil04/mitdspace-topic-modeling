@@ -103,13 +103,12 @@ Default login: `admin` / `admin`
 To start visualizing data, add Prometheus as a data source in Grafana:
 
 1. Open [http://localhost:3000](http://localhost:3000) and log in.
-2. Navigate to **Gear (⚙️) → Data Sources**.
+2. Navigate to **Sidebar → Data Sources**.
 3. Click **Add data source** and select **Prometheus**.
 4. In the **URL** field, enter: `http://prometheus:9090`
 5. Click **Save & test** to save and verify the connection.
 
 Once connected, you can begin creating dashboards or importing existing ones to monitor system metrics.
-
 
 ---
 
