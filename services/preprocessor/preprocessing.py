@@ -5,6 +5,7 @@ import json
 import logging
 import numpy as np
 from pathlib import Path
+from prometheus_client import Counter, Summary
 
 # Base path dalam container
 BASE_PATH = Path("app")
@@ -24,6 +25,13 @@ logging.basicConfig(
     level=logging.INFO,  # Tampilkan level INFO dan di atasnya
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[logging.StreamHandler(sys.stdout)]  # Arahkan ke stdout
+)
+
+preprocessing_duration_seconds = Summary(
+    "preprocessing_duration_seconds", "Time spent preprocessing papers"
+)
+preprocessed_papers_total = Counter(
+    "preprocessed_papers_total", "Total number of papers preprocessed"
 )
 
 def clean_text(text):
@@ -53,6 +61,7 @@ def clean_text(text):
         logging.error(f"Error in clean_text: {e}")
         return ""
 
+@preprocessing_duration_seconds.time()
 def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
     """Cleans all text fields in the dataset, including list-of-strings fields like authors."""
     seen = set()
@@ -81,6 +90,8 @@ def preprocess_papers(papers, output_path=PREPROCESSED_DATA_PATH):
         logging.info(f"Preprocessing completed! {len(cleaned_papers)} unique records saved in '{output_path}'")
     except Exception as e:
         logging.error(f"Error saving preprocessed data: {e}")
+
+    preprocessed_papers_total.inc(len(cleaned_papers))  # <-- Tambahkan baris ini
 
     return cleaned_papers
 
