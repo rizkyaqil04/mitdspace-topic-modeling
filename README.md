@@ -1,6 +1,6 @@
-# 📚 TopikAI - Scientific Publication Pipeline
+# 📚 KATARSIS - A Microservice-Based Topic Modeling Pipeline for Scientific Publications
 
-TopikAI is a microservice-based system designed to scrape scientific publications, preprocess textual data, train topic modeling models using BERTopic, and expose monitoring metrics through Prometheus and Grafana.
+KATARSIS is a microservice-based system designed to scrape scientific publications, preprocess textual data, train topic modeling models using BERTopic, and expose monitoring metrics through Prometheus and Grafana.
 
 ---
 
