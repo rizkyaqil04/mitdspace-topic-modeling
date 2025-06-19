@@ -121,8 +121,23 @@ def compute_topics_with_bertopic(papers, save_model=True):
         mlflow.log_metric("num_topics", num_topics)
         mlflow.log_artifact(str(TOPICS_PATH))
         mlflow.log_artifact(MODEL_PATH)
+
+        # === Tambahan: Model Registry ===
+        # Log model as generic artifact (since BERTopic is not a native MLflow flavor)
+        # Start a run to get run_id
+        with mlflow.start_run() as run:
+            mlflow.log_metric("num_topics", num_topics)
+            mlflow.log_artifact(str(TOPICS_PATH))
+            mlflow.log_artifact(MODEL_PATH)
+            # Register model to Model Registry
+            artifact_path = "bertopic_model"
+            mlflow.log_artifacts(str(MODEL_PATH), artifact_path)
+            model_uri = f"runs:/{run.info.run_id}/{artifact_path}"
+            # Register the model (will create a new version if already exists)
+            result = mlflow.register_model(model_uri, "BERTopicModel")
+            logging.info(f"Model registered to MLflow Model Registry: {result.name} (version {result.version})")
     except Exception as e:
-        logging.warning(f"MLflow logging skipped: {e}")
+        logging.warning(f"MLflow logging/registry skipped: {e}")
 
     return topic_model, [int(t) for t in topic_model.topics_]
 
