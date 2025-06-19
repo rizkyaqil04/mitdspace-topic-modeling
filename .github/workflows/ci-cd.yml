@@ -2,7 +2,7 @@ name: CI - Test and Build Images
 
 on:
   push:
-    branches: ["master", "Aqill's"]
+    branches: ["master"]
   pull_request:
 
 jobs:
