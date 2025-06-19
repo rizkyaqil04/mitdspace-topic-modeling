@@ -6,22 +6,22 @@ stages:
     deps:
     - path: services/scraper/main.py
       hash: md5
-      md5: 9582585d0e662e9801e5a0cc4d7125ab
-      size: 1228
+      md5: 60e2a0cff11519b4b86e273f9ca5b6a3
+      size: 1498
     - path: services/scraper/requirements.txt
       hash: md5
-      md5: 53c33857d70d71508784de4232a144d7
-      size: 36
+      md5: 90cda10eecbee617761834b7ddc79834
+      size: 54
     - path: services/scraper/scraping.py
       hash: md5
-      md5: a6dc81cfbbaddc027c56f67f648a79ab
-      size: 8579
+      md5: 58c87162e1cbb504d5106f44f81c8c44
+      size: 8903
     outs:
     - path: data/raw/
       hash: md5
-      md5: d12b14fae80656bec60751cdd73fecdf.dir
-      size: 189281
-      nfiles: 1
+      md5: 6f371b1078e8fb10ce265b0327ae203c.dir
+      size: 20465821
+      nfiles: 2
   preprocess:
     cmd: "pip install -r services/preprocessor/requirements.txt \npython services/preprocessor/main.py
       --input data/raw/mit_scraped_100.json --output data/processed/data_preprocessed.json\n"
