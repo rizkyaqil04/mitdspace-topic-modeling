@@ -1,9 +1,15 @@
-name: Monthly DVC Pipeline
+name: Weekly DVC Pipeline
+
+# on:
+#   schedule:
+#     - cron: '0 3 * * 1'  # Setiap Senin pukul 03:00 (UTC)
+#   workflow_dispatch:
 
 on:
-  schedule:
-    - cron: '0 3 * * *'  # Setiap hari jam 03:00
-  workflow_dispatch:
+  push:
+    branches:
+      - "Aqill's"
+
 
 jobs:
   dvc-run:
