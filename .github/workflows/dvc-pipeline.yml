@@ -4,9 +4,14 @@ on:
   schedule:
     - cron: '0 3 * * 1'  # Setiap Senin pukul 03:00 (UTC)
   workflow_dispatch:
+  workflow_run:
+    workflows: ["CI - Test and Build Images"]
+    types:
+      - completed
 
 jobs:
   dvc-run:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -44,7 +49,7 @@ jobs:
         run: |
           pip install "pyOpenSSL<24.2.1" "cryptography<43"
           pip install dvc[gdrive]
-          
+
       - name: Commit DVC metadata
         run: |
           dvc commit
